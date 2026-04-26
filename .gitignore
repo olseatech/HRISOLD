@@ -1,0 +1,13 @@
+.env
+TERMS OF REFERENCE-HRIS_V3.pdf
+TERMS OF REFERENCE-HRIS_V3A.md
+TOR_Compliance_Analysis.docx
+
+/vendor/
+/storage/logs/*.log
+/storage/cache/*
+/storage/backups/*
+/public/uploads/photos/*
+/public/uploads/documents/*
+!/public/uploads/photos/.gitkeep
+!/public/uploads/documents/.gitkeep

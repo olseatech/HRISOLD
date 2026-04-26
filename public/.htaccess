@@ -1,0 +1,33 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# ── Directory listing disabled ────────────────────────────────────
+Options -Indexes
+
+# ── Security headers ──────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none';"
+    Header always unset X-Powered-By
+    Header always unset Server
+</IfModule>
+
+# ── Block sensitive file types from direct access ─────────────────
+<FilesMatch "\.(env|log|sql|md|json|lock|sh|bak|htpasswd|gitignore|phar|ini)$">
+    Require all denied
+</FilesMatch>
+
+# ── Prevent clickjacking via meta-refresh ─────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "DENY"
+</IfModule>

@@ -1,0 +1,349 @@
+/* ============================================================
+   responsive.css - All breakpoints in one place
+   ============================================================ */
+
+/* -- 1280px: wide layout tweaks --------------------------- */
+
+@media (max-width: 1280px) {
+    .dash-grid {
+        grid-template-columns: minmax(0, 1.5fr) minmax(220px, 1fr);
+    }
+
+    .pay-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -- 1200px: compact adjustments ------------------------- */
+
+@media (max-width: 1200px) {
+    .dash-main,
+    .dash-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-hero-side {
+        min-width: 0;
+        max-width: 340px;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .emp-filter-form {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .emp-filter-form .emp-filter-field:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .set-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .emp-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pay-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -- 960px: sidebar goes off-canvas ---------------------- */
+
+@media (max-width: 960px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .app-content {
+        padding: 16px 18px 24px;
+    }
+
+    .topbar {
+        padding: 8px 14px;
+        grid-template-columns: auto 1fr auto;
+        gap: 10px;
+    }
+
+    .gov-banner {
+        padding: 5px 14px;
+        grid-column: 1 / -1;
+    }
+
+    .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: 256px;
+        transform: translateX(-100%);
+        z-index: 60;
+        transition: transform var(--transition-default);
+        box-shadow: var(--shadow-sidebar);
+    }
+
+    .sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle,
+    .topbar-menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .topbar-pill {
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .topbar-pill-divider {
+        display: none;
+    }
+
+    .topbar-date {
+        display: none;
+    }
+
+    .topbar-title {
+        font-size: 0.95rem;
+    }
+
+    .chart-wrap {
+        min-height: 220px;
+    }
+
+    .chart-wrap canvas {
+        height: 200px !important;
+    }
+
+    .emp-hero,
+    .att-hero,
+    .leave-hero,
+    .pay-hero,
+    .set-hero,
+    .bill-hero {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .emp-hero-side,
+    .att-hero-side,
+    .leave-hero-side,
+    .pay-hero-side,
+    .set-hero-side {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .emp-stat,
+    .att-stat,
+    .leave-stat,
+    .pay-stat,
+    .set-stat {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2);
+    }
+
+    .emp-hero-actions,
+    .page-actions {
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .att-form-grid,
+    .leave-form-grid,
+    .pay-assign-form,
+    .att-filter-form,
+    .leave-filter-form,
+    .pay-inline-form,
+    .set-system-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -- 640px: mobile --------------------------------------- */
+
+@media (max-width: 640px) {
+    .app-content {
+        padding: 14px;
+    }
+
+    .kpi-grid,
+    .stat-grid,
+    .form-grid,
+    .emp-form-grid,
+    .set-form-grid,
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-hero {
+        padding: var(--space-4);
+    }
+
+    .emp-hero,
+    .att-hero,
+    .leave-hero,
+    .pay-hero,
+    .set-hero {
+        padding: var(--space-4);
+    }
+
+    .emp-surface,
+    .att-surface,
+    .leave-surface,
+    .pay-card,
+    .set-card,
+    .panel {
+        border-radius: var(--radius-lg);
+    }
+
+    .lock-modal {
+        padding: var(--space-6) var(--space-5);
+    }
+
+    .lock-modal-actions {
+        flex-direction: column;
+    }
+
+    .lock-modal-btn {
+        width: 100%;
+    }
+
+    .nav-link {
+        padding: 10px 12px;
+        font-size: var(--text-sm);
+    }
+
+    .topbar-pill {
+        padding: 6px 10px;
+    }
+
+    .topbar-account-role {
+        display: none;
+    }
+
+    .page-banner-actions {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .emp-table-wrap,
+    .att-table-wrap,
+    .leave-table-wrap,
+    .pay-table-wrap,
+    .set-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* -- 480px: small mobile --------------------------------- */
+
+@media (max-width: 480px) {
+    .emp-filter-form {
+        grid-template-columns: 1fr;
+    }
+
+    .emp-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .emp-action-link,
+    .emp-action-primary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .emp-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .emp-form-hint {
+        margin-right: 0;
+    }
+
+    .leave-form-actions,
+    .pay-form-actions,
+    .set-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .topbar-meta h1 {
+        font-size: var(--text-base);
+    }
+}
+
+/* -- Marketing / Public pages ---------------------------- */
+
+@media (max-width: 740px) {
+    .mk-shell {
+        width: min(94vw, 100%);
+        gap: var(--space-4);
+    }
+
+    .mk-plan-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .mk-selection-summary,
+    .mk-pricing-side,
+    .mk-final-cta,
+    .mk-faq,
+    .mk-hero-main,
+    .mk-hero-aside,
+    .mk-plan-card {
+        border-radius: var(--radius-xl);
+    }
+
+    .mk-hero-main h1,
+    .mk-pricing-hero h1 {
+        font-size: clamp(1.7rem, 7vw, 2.1rem);
+    }
+}
+
+@media (max-width: 390px) {
+    .mk-btn {
+        min-height: 46px;
+        font-size: var(--text-sm);
+    }
+
+    .mk-plan-name {
+        font-size: 1.1rem;
+    }
+
+    .mk-plan-price {
+        font-size: 1.05rem;
+    }
+
+    .mk-compare-table {
+        min-width: 540px;
+    }
+}
+
+/* -- Reduced motion -------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

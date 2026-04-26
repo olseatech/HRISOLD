@@ -1,0 +1,455 @@
+.app-body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    color: var(--color-text-primary);
+    background: var(--color-canvas-default);
+}
+
+.app-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    background: var(--color-canvas-default);
+}
+
+/* ============================================================
+   Gov banner strip (top of authenticated app)
+   ============================================================ */
+.gov-banner {
+    grid-column: 1 / -1;
+    background: var(--gov-ink-900);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: var(--banner-height, 31px);
+    border-bottom: 2px solid var(--gov-gold);
+}
+
+.gov-banner-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gov-banner-seal {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.gov-banner-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0.85;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+}
+
+.gov-banner-right a {
+    color: #ffffff;
+}
+
+.gov-banner-right a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================================
+   Sidebar
+   ============================================================ */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background: var(--gov-white);
+    border-right: 1px solid var(--color-border-default);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 11px 16px 11px;
+    border-bottom: 1px solid var(--color-border-default);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+.sidebar-seal {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gov-blue);
+    padding: 4px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.sidebar-seal svg {
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar-brand {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.brand-kicker {
+    color: var(--gov-blue);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.brand-name {
+    color: var(--color-text-primary);
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+}
+
+.brand-sub {
+    color: var(--color-text-tertiary);
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.sidebar-group {
+    padding: 8px 10px 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-label {
+    margin: 0 4px 4px;
+    color: var(--color-text-tertiary);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.sidebar-nav {
+    display: grid;
+    gap: 1px;
+}
+
+.nav-link {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-text-secondary);
+    padding: 7px 12px;
+    border-radius: var(--radius-md);
+    border-left: 3px solid transparent;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    text-decoration: none;
+    position: relative;
+    min-height: 34px;
+}
+
+.nav-link-icon {
+    width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    color: currentColor;
+    flex-shrink: 0;
+}
+
+.nav-link-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.nav-link:hover {
+    color: var(--color-text-primary);
+    background: var(--gov-surface-alt);
+    text-decoration: none;
+}
+
+.nav-link.is-active {
+    color: var(--gov-blue);
+    background: var(--gov-blue-50);
+    border-left-color: var(--gov-blue);
+    font-weight: 700;
+}
+
+.nav-link.is-active .nav-link-icon {
+    color: var(--gov-blue);
+}
+
+/* ── Locked nav link (subscription feature lock) ──────── */
+.nav-link-locked {
+    display: grid;
+    grid-template-columns: 18px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    color: var(--gov-ink-300);
+    padding: 7px 12px;
+    border-radius: var(--radius-md);
+    border-left: 3px solid transparent;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    text-decoration: none;
+    position: relative;
+    min-height: 34px;
+    cursor: pointer;
+}
+
+.nav-link-locked:hover {
+    color: var(--gov-ink-500);
+    background: var(--gov-surface-alt);
+    text-decoration: none;
+}
+
+.nav-link-locked .nav-link-icon {
+    width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    color: currentColor;
+    flex-shrink: 0;
+}
+
+.nav-link-locked .nav-link-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.nav-link-lock {
+    width: 16px;
+    height: 16px;
+    display: grid;
+    place-items: center;
+    color: var(--gov-amber);
+    flex-shrink: 0;
+}
+
+.nav-link-lock svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ── Sidebar account block — pinned to bottom ───────────── */
+.sidebar-footer {
+    margin-top: auto;
+    padding: 10px;
+    border-top: 1px solid var(--color-border-default);
+    display: grid;
+    gap: 4px;
+}
+
+.sidebar-user {
+    padding: 8px 10px;
+    border-radius: var(--radius-md);
+    background: var(--gov-surface-alt);
+    border: 1px solid var(--gov-line-soft);
+    display: grid;
+    gap: 2px;
+}
+
+.sidebar-user-name {
+    color: var(--gov-ink-900);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.sidebar-user-role {
+    color: var(--gov-ink-400);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Legacy top-account block — no longer rendered, kept as safety */
+.sidebar-account {
+    display: none;
+}
+
+.nav-link.logout {
+    color: var(--gov-red);
+    border-left-color: transparent;
+    min-height: 36px;
+    padding: 7px 12px;
+    font-size: 0.82rem;
+}
+
+.nav-link.logout:hover {
+    background: var(--gov-red-100);
+    color: var(--gov-red);
+}
+
+.nav-link.logout .nav-link-icon {
+    color: var(--gov-red);
+    width: 18px;
+    height: 18px;
+}
+
+.nav-link.logout .nav-link-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ============================================================
+   Main content area
+   ============================================================ */
+.app-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 100vh;
+}
+
+.topbar {
+    z-index: 40;
+    min-height: var(--topbar-height);
+    border-bottom: 1px solid var(--color-border-default);
+    background: var(--gov-white);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+}
+
+.sidebar-toggle {
+    display: none;
+}
+
+.topbar-menu-btn {
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-sm);
+    background: var(--gov-white);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.topbar-menu-btn:hover {
+    background: var(--gov-surface-alt);
+    border-color: var(--gov-ink-400);
+}
+
+.topbar-meta {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+}
+
+.topbar-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-text-tertiary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.topbar-breadcrumb .sep {
+    color: var(--gov-ink-200);
+}
+
+.topbar-title {
+    color: var(--color-text-primary);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+}
+
+.topbar-user {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.topbar-date {
+    color: var(--color-text-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    padding: 4px 10px;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-sm);
+    background: var(--gov-surface-alt);
+}
+
+.topbar-account {
+    display: grid;
+    gap: 1px;
+    text-align: right;
+}
+
+.topbar-account-name {
+    color: var(--color-text-primary);
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.topbar-account-role {
+    color: var(--color-text-tertiary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.app-content {
+    padding: 20px 24px 28px;
+    background: transparent;
+    flex: 1;
+}
+
+.footer {
+    border-top: 1px solid var(--color-border-default);
+    background: var(--gov-white);
+    color: var(--color-text-tertiary);
+    font-size: 0.76rem;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.footer-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-right {
+    letter-spacing: 0.02em;
+}
+
+.footer strong {
+    color: var(--color-text-primary);
+}

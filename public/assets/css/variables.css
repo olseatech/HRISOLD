@@ -1,0 +1,183 @@
+/* ============================================================
+   HRIS Design System - Government-Style Tokens
+   White-first - Authority Blue - Structured - Accessible
+   ============================================================ */
+
+:root {
+    --gov-white: #ffffff;
+    --gov-paper: #fafbfc;
+    --gov-surface: #ffffff;
+    --gov-surface-alt: #f4f6f9;
+    --gov-surface-strong: #eef1f5;
+    --gov-ink-900: #0b1f3a;
+    --gov-ink-700: #1f2d44;
+    --gov-ink-500: #4a5a75;
+    --gov-ink-400: #6b7891;
+    --gov-ink-300: #9aa5ba;
+    --gov-ink-200: #c6ccd8;
+    --gov-line: #d8dde5;
+    --gov-line-soft: #e6eaf1;
+    --gov-line-strong: #b9c0cd;
+    --gov-blue: #0b3d91;
+    --gov-blue-600: #0f4fb3;
+    --gov-blue-500: #1457c7;
+    --gov-blue-100: #e4edfa;
+    --gov-blue-50: #f1f5fc;
+    --gov-teal: #0f766e;
+    --gov-teal-600: #0d8478;
+    --gov-teal-100: #d7eeec;
+    --gov-teal-50: #edf7f6;
+    --gov-gold: #b68409;
+    --gov-gold-100: #fbf0d4;
+    --gov-red: #b42318;
+    --gov-red-100: #fbe4e4;
+    --gov-green: #106b3a;
+    --gov-green-100: #dcf0e3;
+    --gov-amber: #9a5a00;
+    --gov-amber-100: #fbecd2;
+    --color-canvas-default: var(--gov-paper);
+    --color-canvas-subtle: var(--gov-white);
+    --color-canvas-inset: var(--gov-surface-alt);
+    --color-border-default: var(--gov-line);
+    --color-border-muted: var(--gov-line-soft);
+    --color-border-strong: var(--gov-line-strong);
+    --color-text-primary: var(--gov-ink-900);
+    --color-text-secondary: var(--gov-ink-500);
+    --color-text-tertiary: var(--gov-ink-400);
+    --color-text-link: var(--gov-blue);
+    --color-accent-blue: var(--gov-blue);
+    --color-accent-blue-muted: var(--gov-blue-100);
+    --color-accent-teal: var(--gov-teal);
+    --color-accent-teal-muted: var(--gov-teal-100);
+    --color-accent-green: var(--gov-green);
+    --color-accent-green-muted: var(--gov-green-100);
+    --color-accent-red: var(--gov-red);
+    --color-accent-red-muted: var(--gov-red-100);
+    --color-accent-yellow: var(--gov-amber);
+    --color-accent-yellow-muted: var(--gov-amber-100);
+    --color-accent-gold: var(--gov-gold);
+    --shadow-xs: 0 1px 0 rgba(11, 31, 58, 0.04);
+    --shadow-sm: 0 1px 2px rgba(11, 31, 58, 0.06), 0 1px 0 rgba(11, 31, 58, 0.04);
+    --shadow-md: 0 2px 6px rgba(11, 31, 58, 0.08), 0 1px 0 rgba(11, 31, 58, 0.04);
+    --shadow-lg: 0 8px 24px rgba(11, 31, 58, 0.1);
+    --space-2xs: 2px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 24px;
+    --space-2xl: 32px;
+    --space-3xl: 48px;
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --font-family: 'Inter', 'Segoe UI', Roboto, Tahoma, Geneva, Verdana, sans-serif;
+    --font-display: 'Inter', 'Segoe UI', Roboto, Tahoma, sans-serif;
+    --font-mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+    --transition-fast: 120ms ease-out;
+    --transition-default: 180ms ease-out;
+    --transition-slow: 260ms ease-out;
+    --sidebar-width: 248px;
+    --sidebar-collapsed: 68px;
+    --topbar-height: 56px;
+    --banner-height: 34px;
+    --focus-ring: 0 0 0 3px rgba(11, 61, 145, 0.24);
+    --focus-ring-danger: 0 0 0 3px rgba(180, 35, 24, 0.24);
+
+    /* ============================================================
+       Extended palette aliases
+       Used by dashboard, billing, marketing, and responsive modules.
+       Maps Tailwind-style tokens → HRIS gov design system.
+       ============================================================ */
+
+    /* Core shorthand aliases */
+    --white: var(--gov-white);
+    --color-border: var(--gov-line);
+    --font-sans: var(--font-family);
+    --shadow-sidebar: 2px 0 16px rgba(11, 31, 58, 0.12);
+
+    /* Radius extensions */
+    --radius-full: 9999px;
+    --radius-2xl: 16px;
+
+    /* Numeric spacing scale (4 px base unit) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 28px;
+    --space-8: 32px;
+
+    /* Typography scale */
+    --text-xs: 0.72rem;
+    --text-sm: 0.84rem;
+    --text-md: 0.95rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+
+    /* Font weights */
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-extrabold: 800;
+
+    /* Neutral gray (slate) scale */
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-150: #eaeff5;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+
+    /* Blue scale → gov-blue family */
+    --blue-50: var(--gov-blue-50);
+    --blue-100: var(--gov-blue-100);
+    --blue-200: #c5d8f7;
+    --blue-400: #4b83e0;
+    --blue-500: var(--gov-blue-500);
+    --blue-600: var(--gov-blue-600);
+    --blue-700: var(--gov-blue);
+    --blue-800: #082f72;
+    --blue-900: #051d48;
+
+    /* Teal scale → gov-teal family */
+    --teal-50: var(--gov-teal-50);
+    --teal-100: var(--gov-teal-100);
+    --teal-500: #0d9488;
+    --teal-600: var(--gov-teal);
+    --teal-700: var(--gov-teal-600);
+    --teal-800: #0a5048;
+
+    /* Green scale → gov-green family */
+    --green-50: #f0fdf4;
+    --green-100: var(--gov-green-100);
+    --green-500: #22c55e;
+    --green-600: #16a34a;
+    --green-700: var(--gov-green);
+
+    /* Amber / orange scale → gov-amber family */
+    --amber-50: var(--gov-amber-100);
+    --amber-100: var(--gov-amber-100);
+    --amber-500: #f59e0b;
+    --amber-600: #d97706;
+    --amber-700: var(--gov-amber);
+    --amber-800: #7c3a00;
+
+    /* Red scale → gov-red family */
+    --red-50: var(--gov-red-100);
+    --red-100: var(--gov-red-100);
+    --red-500: #ef4444;
+    --red-600: #dc2626;
+    --red-700: var(--gov-red);
+    --red-800: #7f1d1d;
+}

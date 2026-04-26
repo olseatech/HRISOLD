@@ -1,0 +1,68 @@
+/* Employees module - status badge variants and module-specific extensions.
+   Shared page/card/stat/filter/data-table primitives live in components.css. */
+.emp-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--color-border-default);
+    background: var(--gov-surface-alt);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+.emp-badge-active {
+    color: var(--gov-green);
+    background: var(--gov-green-100);
+    border-color: rgba(16, 107, 58, 0.3);
+}
+
+.emp-badge-probation {
+    color: var(--gov-amber);
+    background: var(--gov-amber-100);
+    border-color: rgba(154, 90, 0, 0.3);
+}
+
+.emp-badge-on_leave {
+    color: var(--gov-blue);
+    background: var(--gov-blue-100);
+    border-color: rgba(11, 61, 145, 0.3);
+}
+
+.emp-badge-resigned,
+.emp-badge-terminated {
+    color: var(--gov-red);
+    background: var(--gov-red-100);
+    border-color: rgba(180, 35, 24, 0.3);
+}
+
+.emp-badge-default {
+    color: var(--color-text-secondary);
+    background: var(--gov-surface-alt);
+    border-color: var(--color-border-default);
+}
+
+/* Employee profile layout */
+.emp-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.emp-profile-grid .card.full {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 860px) {
+    .emp-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .emp-profile-grid .card.full {
+        grid-column: 1;
+    }
+}

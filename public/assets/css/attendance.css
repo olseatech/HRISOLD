@@ -1,0 +1,97 @@
+/* Attendance module - status badges. Shared primitives live in components.css. */
+.att-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--color-border-default);
+    background: var(--gov-surface-alt);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+.att-badge-present {
+    color: var(--gov-green);
+    background: var(--gov-green-100);
+    border-color: rgba(16, 107, 58, 0.3);
+}
+
+.att-badge-late {
+    color: var(--gov-amber);
+    background: var(--gov-amber-100);
+    border-color: rgba(154, 90, 0, 0.3);
+}
+
+.att-badge-half_day {
+    color: var(--gov-blue);
+    background: var(--gov-blue-100);
+    border-color: rgba(11, 61, 145, 0.3);
+}
+
+.att-badge-holiday,
+.att-badge-rest_day {
+    color: var(--color-text-secondary);
+    background: var(--gov-surface-alt);
+    border-color: var(--color-border-default);
+}
+
+.att-badge-absent {
+    color: var(--gov-red);
+    background: var(--gov-red-100);
+    border-color: rgba(180, 35, 24, 0.3);
+}
+
+.att-badge-default {
+    color: var(--color-text-secondary);
+    background: var(--gov-surface-alt);
+    border-color: var(--color-border-default);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-color: rgba(226, 232, 240, 0.8);
+}
+
+.glass-toolbar {
+    background: rgba(248, 250, 252, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.card-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-shine::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.card-shine:hover::after {
+    opacity: 1;
+}
+
+.interactive-rows tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.interactive-rows tbody tr:hover {
+    background: var(--blue-50) !important;
+}
+
+.text-red { color: var(--red-600); }
+.text-blue { color: var(--blue-600); }
+.text-mono { font-family: var(--font-mono); font-size: var(--text-xs); }

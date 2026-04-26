@@ -1,0 +1,15 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Official Government Seal</title>
+  <desc id="desc">Default placeholder seal for Barangay HRIS interface.</desc>
+  <circle cx="64" cy="64" r="60" fill="#ffffff" stroke="#1e3a8a" stroke-width="6"/>
+  <circle cx="64" cy="64" r="48" fill="#f8fafc" stroke="#0f766e" stroke-width="3"/>
+  <path d="M64 31L70.5 50.5H91L74.5 62.5L81 82L64 69.5L47 82L53.5 62.5L37 50.5H57.5L64 31Z" fill="#1d4ed8"/>
+  <circle cx="64" cy="64" r="8" fill="#0f766e"/>
+  <circle cx="64" cy="18" r="3" fill="#1e3a8a"/>
+  <circle cx="101" cy="32" r="3" fill="#1e3a8a"/>
+  <circle cx="110" cy="72" r="3" fill="#1e3a8a"/>
+  <circle cx="84" cy="104" r="3" fill="#1e3a8a"/>
+  <circle cx="44" cy="104" r="3" fill="#1e3a8a"/>
+  <circle cx="18" cy="72" r="3" fill="#1e3a8a"/>
+  <circle cx="27" cy="32" r="3" fill="#1e3a8a"/>
+</svg>

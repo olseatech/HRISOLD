@@ -1,0 +1,573 @@
+/* ============================================================
+   BILLING — Internal billing management (post-login)
+   Government design: navy blue + teal, sharp edges, structured
+   ============================================================ */
+
+.bill-page {
+    display: grid;
+    gap: var(--space-5);
+}
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.bill-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-default);
+    border-left: 4px solid var(--gov-blue);
+    background: var(--gov-white);
+    box-shadow: var(--shadow-xs);
+}
+
+.bill-kicker {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gov-blue);
+    margin: 0 0 4px;
+}
+
+.bill-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--gov-ink-900);
+    letter-spacing: -0.01em;
+}
+
+.bill-subtitle {
+    font-size: 0.86rem;
+    color: var(--gov-ink-500);
+    margin: 0;
+    line-height: 1.55;
+    max-width: 60ch;
+}
+
+.bill-hero-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.bill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 36px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--color-border-default);
+    padding: 0 14px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--gov-ink-700);
+    background: var(--gov-white);
+    transition: background var(--transition-fast), border-color var(--transition-fast),
+                color var(--transition-fast), box-shadow var(--transition-fast);
+    font-family: var(--font-family);
+}
+
+.bill-btn:hover {
+    border-color: var(--gov-blue-100);
+    color: var(--gov-blue);
+    background: var(--gov-blue-50);
+    text-decoration: none;
+}
+
+.bill-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.bill-btn-primary {
+    background: var(--gov-blue);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 2px 6px rgba(11, 61, 145, 0.22);
+}
+
+.bill-btn-primary:hover {
+    background: var(--gov-blue-600);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 3px 10px rgba(11, 61, 145, 0.3);
+}
+
+.bill-btn-muted {
+    background: var(--gov-white);
+    border-color: var(--color-border-default);
+    color: var(--gov-ink-700);
+}
+
+.bill-btn-muted:hover {
+    border-color: var(--gov-ink-400);
+    color: var(--gov-ink-900);
+    background: var(--gov-surface-alt);
+}
+
+.bill-btn-danger {
+    background: var(--gov-red);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.bill-btn-danger:hover {
+    background: #8f1a12;
+    color: #ffffff;
+    border-color: transparent;
+}
+
+/* ── Tabs ──────────────────────────────────────────────────── */
+.bill-tabs-wrap {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--white);
+    box-shadow: var(--shadow-xs);
+    overflow: hidden;
+}
+
+.bill-tabs-nav {
+    display: flex;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--gov-surface-alt);
+    overflow-x: auto;
+}
+
+.bill-tab-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 11px 14px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--gov-ink-500);
+    border-bottom: 2px solid transparent;
+    transition: all 200ms ease;
+    text-align: left;
+    display: grid;
+    gap: 2px;
+}
+
+.bill-tab-btn small {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--gov-ink-400);
+}
+
+.bill-tab-btn:hover {
+    color: var(--gov-ink-900);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.bill-tab-btn.is-active {
+    color: var(--gov-blue);
+    border-bottom-color: var(--gov-blue);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.bill-tab-panel {
+    display: none;
+    padding: 18px;
+}
+
+.bill-tab-panel.is-active {
+    display: block;
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+.bill-card {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    padding: 15px;
+    box-shadow: var(--shadow-xs);
+}
+
+.bill-head {
+    display: grid;
+    gap: 4px;
+}
+
+.bill-head h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gov-ink-900);
+}
+
+.bill-head p {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--gov-ink-500);
+}
+
+/* ── Plan cards grid ───────────────────────────────────────── */
+.bill-plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: 16px;
+}
+
+.bill-plan-card {
+    position: relative;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    padding: 15px;
+    cursor: pointer;
+    display: grid;
+    gap: 6px;
+    transition: all 200ms ease;
+}
+
+.bill-plan-card:hover {
+    border-color: rgba(11, 61, 145, 0.3);
+    box-shadow: 0 4px 14px rgba(11, 31, 58, 0.08);
+    transform: translateY(-1px);
+}
+
+.bill-plan-card.is-selected {
+    border-color: rgba(11, 61, 145, 0.4);
+    box-shadow: 0 0 0 2px rgba(11, 61, 145, 0.1), 0 3px 10px rgba(11, 31, 58, 0.1);
+}
+
+.bill-plan-card.is-recommended {
+    border-color: rgba(15, 118, 110, 0.35);
+    background: var(--white);
+}
+
+.bill-plan-card.is-enterprise {
+    border-color: rgba(154, 90, 0, 0.3);
+    background: var(--white);
+}
+
+.bill-plan-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.bill-plan-tag {
+    display: inline-flex;
+    width: fit-content;
+    padding: 3px 9px;
+    border-radius: var(--radius-xs);
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+    border: 1px solid rgba(11, 61, 145, 0.2);
+}
+
+.bill-plan-tag.is-recommended {
+    background: var(--gov-teal-50);
+    color: var(--gov-teal);
+    border-color: rgba(15, 118, 110, 0.25);
+}
+
+.bill-plan-tag.is-enterprise {
+    background: var(--gov-amber-100);
+    color: var(--gov-amber);
+    border-color: rgba(154, 90, 0, 0.25);
+}
+
+.bill-plan-top {
+    display: grid;
+    gap: 4px;
+}
+
+.bill-plan-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gov-ink-900);
+}
+
+.bill-plan-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gov-ink-900);
+}
+
+.bill-plan-price small {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--gov-ink-500);
+}
+
+.bill-plan-card p {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--gov-ink-500);
+    line-height: 1.5;
+}
+
+.bill-plan-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 5px;
+}
+
+.bill-plan-card ul li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.82rem;
+    color: var(--gov-ink-500);
+}
+
+.bill-plan-card ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 8px;
+    height: 5px;
+    border-left: 2px solid var(--gov-green);
+    border-bottom: 2px solid var(--gov-green);
+    transform: rotate(-45deg);
+}
+
+/* ── Form rows ─────────────────────────────────────────────── */
+.bill-form-row {
+    display: grid;
+    gap: 4px;
+}
+
+.bill-form-row label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gov-ink-500);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.bill-form-row select,
+.bill-form-row input[type="text"] {
+    padding: 7px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
+    font-size: 0.86rem;
+    background: #ffffff;
+    color: var(--gov-ink-900);
+    max-width: 320px;
+}
+
+.bill-form-row select:focus,
+.bill-form-row input[type="text"]:focus {
+    outline: none;
+    border-color: rgba(11, 61, 145, 0.4);
+    box-shadow: 0 0 0 3px rgba(11, 61, 145, 0.1);
+}
+
+.bill-manage-form {
+    display: grid;
+    gap: 10px;
+}
+
+/* ── Status card ───────────────────────────────────────────── */
+.bill-status {
+    border-left: 4px solid var(--color-border);
+}
+
+.bill-status-success { border-left-color: var(--gov-green); }
+.bill-status-warning { border-left-color: var(--gov-amber); }
+.bill-status-danger  { border-left-color: var(--gov-red); }
+.bill-status-info    { border-left-color: var(--gov-blue); }
+
+.bill-status-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--gov-ink-400);
+    margin: 0 0 4px;
+}
+
+.bill-status h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gov-ink-900);
+}
+
+.bill-status p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--gov-ink-500);
+    line-height: 1.5;
+}
+
+.bill-status-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.bill-status-meta div {
+    padding: 8px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--gov-line-soft);
+    background: var(--gov-surface-alt);
+}
+
+.bill-status-meta dt {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: var(--gov-ink-400);
+    margin: 0 0 2px;
+}
+
+.bill-status-meta dd {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--gov-ink-900);
+    margin: 0;
+}
+
+/* ── Tables ────────────────────────────────────────────────── */
+.bill-table-wrap {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    overflow-x: auto;
+}
+
+.bill-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bill-table th {
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: var(--gov-ink-500);
+    background: var(--gov-surface-alt);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+}
+
+.bill-table td {
+    padding: 10px 14px;
+    font-size: 0.84rem;
+    color: var(--gov-ink-900);
+    border-bottom: 1px solid var(--gov-line-soft);
+}
+
+.bill-table tr:last-child td {
+    border-bottom: none;
+}
+
+.bill-table tr:hover td {
+    background: var(--gov-blue-50);
+}
+
+.bill-empty {
+    text-align: center;
+    color: var(--gov-ink-400) !important;
+    padding: 28px 14px !important;
+    font-style: italic;
+}
+
+/* ── Pills ─────────────────────────────────────────────────── */
+.bill-pill {
+    display: inline-flex;
+    padding: 3px 9px;
+    border-radius: var(--radius-xs);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.bill-pill-completed,
+.bill-pill-active {
+    background: var(--gov-green-100);
+    color: var(--gov-green);
+    border: 1px solid rgba(16, 107, 58, 0.2);
+}
+
+.bill-pill-trialing {
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+    border: 1px solid rgba(11, 61, 145, 0.2);
+}
+
+.bill-pill-pending,
+.bill-pill-past_due {
+    background: var(--gov-amber-100);
+    color: var(--gov-amber);
+    border: 1px solid rgba(154, 90, 0, 0.2);
+}
+
+.bill-pill-failed,
+.bill-pill-canceled,
+.bill-pill-cancelled {
+    background: var(--gov-red-100);
+    color: var(--gov-red);
+    border: 1px solid rgba(180, 35, 24, 0.2);
+}
+
+.bill-live-region {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .bill-hero {
+        flex-direction: column;
+    }
+
+    .bill-hero-actions {
+        width: 100%;
+    }
+
+    .bill-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .bill-tabs-nav {
+        flex-wrap: nowrap;
+    }
+
+    .bill-tab-btn {
+        min-width: 120px;
+        padding: 10px 12px;
+        font-size: 0.78rem;
+    }
+
+    .bill-tab-panel {
+        padding: 16px;
+    }
+
+    .bill-plan-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

@@ -1,0 +1,1965 @@
+/* ============================================================
+   MARKETING — Minimalist Government-Style Landing & Pricing
+   White-first · Flat · Structured · Accessible
+   ============================================================ */
+
+/* ── Marketing page shell ──────────────────────────────────── */
+.marketing-page {
+    min-height: 100vh;
+    color: var(--gov-ink-900);
+    background: var(--gov-paper);
+    overflow-x: clip;
+    position: relative;
+}
+
+/* ── Shell ──────────────────────────────────────────────────── */
+.mk-shell {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+    display: grid;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+/* ── Topbar ─────────────────────────────────────────────────── */
+.mk-topbar {
+    border-bottom: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition: border-color 0.15s ease;
+}
+
+.mk-topbar:hover {
+    border-color: var(--gov-line-strong);
+}
+
+/* ── Brand ──────────────────────────────────────────────────── */
+.mk-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gov-ink-900);
+    text-decoration: none;
+}
+
+.mk-brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--gov-blue);
+    flex-shrink: 0;
+}
+
+.mk-brand strong {
+    display: block;
+    font-size: 1rem;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+}
+
+.mk-brand small {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gov-ink-400);
+    font-weight: 600;
+}
+
+/* ── Nav ────────────────────────────────────────────────────── */
+.mk-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mk-nav a {
+    color: var(--gov-ink-500);
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 8px 0 6px;
+    margin: 0 14px;
+    transition: all 120ms ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mk-nav a:hover,
+.mk-nav a:focus-visible {
+    color: var(--gov-blue);
+    border-color: var(--gov-blue);
+    background: transparent;
+    outline: none;
+}
+
+.mk-nav-cta {
+    color: var(--gov-white) !important;
+    border: 1px solid var(--gov-blue) !important;
+    background: var(--gov-blue) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 7px 14px !important;
+    margin: 0 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.mk-nav-cta:hover,
+.mk-nav-cta:focus-visible {
+    background: var(--gov-blue-600) !important;
+    border-color: var(--gov-blue-600) !important;
+    color: var(--gov-white) !important;
+    box-shadow: none !important;
+    transform: none;
+}
+
+/* ── Shared utilities ───────────────────────────────────────── */
+.mk-kicker {
+    margin: 0;
+    color: var(--gov-blue);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.mk-btn {
+    min-height: 38px;
+    border: 1px solid var(--gov-line-strong);
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 120ms ease;
+    text-decoration: none;
+    position: relative;
+    overflow: visible;
+    font-family: var(--font-family);
+}
+
+.mk-btn:focus-visible {
+    outline: 2px solid var(--gov-blue);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+.mk-btn-primary {
+    color: var(--gov-white);
+    border-color: var(--gov-blue);
+    background: var(--gov-blue);
+    box-shadow: none;
+}
+
+.mk-btn-primary:hover {
+    background: var(--gov-blue-600);
+    border-color: var(--gov-blue-600);
+    box-shadow: none;
+    transform: none;
+    color: var(--gov-white);
+}
+
+.mk-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mk-btn-muted {
+    color: var(--gov-ink-900);
+    border-color: var(--gov-line-strong);
+    background: var(--gov-white);
+}
+
+.mk-btn-muted:hover {
+    border-color: var(--gov-blue);
+    background: var(--gov-white);
+    color: var(--gov-blue);
+}
+
+.mk-btn.is-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+    gap: 8px;
+}
+
+.mk-btn.is-loading::before {
+    content: "";
+    width: 13px;
+    height: 13px;
+    border-radius: 2px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    animation: mk-spin 0.85s linear infinite;
+}
+
+/* ── Section heads ──────────────────────────────────────────── */
+.mk-section-head {
+    display: grid;
+    gap: 6px;
+    max-width: 100%;
+}
+
+.mk-section-head h2 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+}
+
+.mk-section-head p {
+    margin: 0;
+    color: var(--gov-ink-500);
+    line-height: 1.55;
+    font-size: 0.88rem;
+    max-width: 60ch;
+}
+
+.mk-footnote {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.82rem;
+}
+
+.mk-footnote a {
+    color: var(--gov-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.mk-footnote a:hover {
+    text-decoration: underline;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HERO — Flat, structured government panel
+   ══════════════════════════════════════════════════════════════ */
+.mk-hero-panel {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 40px 36px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(240px, 300px);
+    gap: 40px;
+    align-items: start;
+    position: relative;
+}
+
+/* ── Hero content ──────────────────────────────────────────── */
+.mk-hero-main {
+    display: grid;
+    gap: 14px;
+    position: relative;
+}
+
+.mk-hero-main h1 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+/* Accent on keyword */
+.mk-hero-main h1 .mk-gradient-text {
+    color: var(--gov-blue);
+}
+
+.mk-hero-summary {
+    margin: 0;
+    color: var(--gov-ink-500);
+    max-width: 55ch;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.mk-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+/* ── Trust badges ──────────────────────────────────────────── */
+.mk-trust-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.mk-trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gov-ink-500);
+    font-size: 0.74rem;
+    font-weight: 600;
+}
+
+.mk-trust-badge svg {
+    width: 15px;
+    height: 15px;
+    color: var(--gov-blue);
+    flex-shrink: 0;
+}
+
+/* ── Hero tags ─────────────────────────────────────────────── */
+.mk-hero-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.mk-hero-tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gov-line);
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    transition: all 120ms ease;
+    cursor: default;
+    background: var(--gov-surface-alt);
+    color: var(--gov-ink-700);
+}
+
+.mk-hero-tag.is-blue {
+    border-color: var(--gov-blue-100);
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+}
+
+.mk-hero-tag.is-teal {
+    border-color: var(--gov-teal-100);
+    background: var(--gov-teal-50);
+    color: var(--gov-teal);
+}
+
+.mk-hero-tag.is-coral {
+    border-color: var(--gov-amber-100);
+    background: #fef3e2;
+    color: var(--gov-amber);
+}
+
+/* ── Hero sidebar ──────────────────────────────────────────── */
+.mk-hero-side {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-surface-alt);
+    box-shadow: none;
+    padding: 18px;
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    position: relative;
+}
+
+.mk-side-label {
+    margin: 0;
+    color: var(--gov-ink-400);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 700;
+}
+
+.mk-side-value {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gov-ink-900);
+}
+
+.mk-side-meta {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.mk-hero-stats {
+    margin: 2px 0 0;
+    display: grid;
+    gap: 6px;
+}
+
+.mk-hero-stat {
+    margin: 0;
+    padding: 8px 10px;
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    transition: all 120ms ease;
+}
+
+.mk-hero-stat:hover {
+    border-color: var(--gov-blue);
+}
+
+.mk-hero-stat dt {
+    margin: 0;
+    color: var(--gov-ink-400);
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mk-hero-stat dd {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SOCIAL PROOF — Flat stat strip
+   ══════════════════════════════════════════════════════════════ */
+.mk-social-proof {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.mk-proof-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+}
+
+.mk-proof-number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gov-ink-900);
+    line-height: 1;
+}
+
+.mk-proof-number .mk-counter {
+    display: inline-block;
+}
+
+.mk-proof-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gov-ink-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BENTO GRID — Clean feature cards
+   ══════════════════════════════════════════════════════════════ */
+.mk-bento-panel {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 28px;
+    display: grid;
+    gap: 20px;
+}
+
+.mk-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+}
+
+.mk-bento-card {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    padding: 18px;
+    display: grid;
+    gap: 8px;
+    transition: all 150ms ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.mk-bento-card:hover {
+    border-color: var(--gov-blue);
+    background: var(--gov-surface-alt);
+}
+
+.mk-bento-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.mk-bento-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--gov-surface-alt);
+    border: 1px solid var(--gov-line);
+}
+
+.mk-bento-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.mk-bento-icon.is-blue {
+    background: var(--gov-blue-50);
+    border-color: var(--gov-blue-100);
+    color: var(--gov-blue);
+}
+
+.mk-bento-icon.is-teal {
+    background: var(--gov-teal-50);
+    border-color: var(--gov-teal-100);
+    color: var(--gov-teal);
+}
+
+.mk-bento-icon.is-coral {
+    background: #fef3e2;
+    border-color: var(--gov-amber-100);
+    color: var(--gov-amber);
+}
+
+.mk-bento-icon.is-green {
+    background: #f0fdf4;
+    border-color: var(--gov-green-100);
+    color: var(--gov-green);
+}
+
+.mk-bento-icon.is-amber {
+    background: #fef3e2;
+    border-color: var(--gov-amber-100);
+    color: var(--gov-amber);
+}
+
+.mk-bento-card h3 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.mk-bento-card p {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* ── Badges ─────────────────────────────────────────────────── */
+.mk-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-xs);
+    padding: 2px 8px;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+}
+
+.mk-badge-attendance { background: var(--gov-blue-50); color: var(--gov-blue); border-color: var(--gov-blue-100); }
+.mk-badge-leave { background: var(--gov-teal-50); color: var(--gov-teal); border-color: var(--gov-teal-100); }
+.mk-badge-payroll { background: #fef3e2; color: var(--gov-amber); border-color: var(--gov-amber-100); }
+.mk-badge-core { background: #f0fdf4; color: var(--gov-green); border-color: var(--gov-green-100); }
+.mk-badge-admin { background: #f1f5f9; color: var(--gov-ink-500); border-color: var(--gov-line); }
+
+/* ══════════════════════════════════════════════════════════════
+   MODULE ACCESS MATRIX — Clean flat table
+   ══════════════════════════════════════════════════════════════ */
+.mk-modules-panel {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 28px;
+    display: grid;
+    gap: 20px;
+}
+
+.mk-modules-matrix {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    overflow: hidden;
+}
+
+.mk-matrix-header {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 130px;
+    background: var(--gov-surface-alt);
+    border-bottom: 1px solid var(--gov-line);
+    padding: 10px 16px;
+    align-items: center;
+}
+
+.mk-matrix-header > div {
+    color: var(--gov-ink-400);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+}
+
+.mk-matrix-header .mk-matrix-label { text-align: left; color: var(--gov-ink-900); }
+
+.mk-matrix-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 130px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gov-line);
+    align-items: center;
+    transition: all 120ms ease;
+    background: var(--gov-white);
+}
+
+.mk-matrix-row:last-child { border-bottom: none; }
+.mk-matrix-row:nth-child(even) { background: var(--gov-surface-alt); }
+
+.mk-matrix-row:hover {
+    background: #eff6ff;
+}
+
+.mk-matrix-label {
+    color: var(--gov-ink-900);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+.mk-matrix-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mk-check-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.mk-check-icon svg {
+    width: 10px;
+    height: 10px;
+}
+
+.mk-dash-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+}
+
+.mk-dash-icon > span {
+    display: block;
+    width: 8px;
+    height: 1.5px;
+    border-radius: 0;
+    background: var(--gov-line-strong);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CTA PANEL — Flat government panel
+   ══════════════════════════════════════════════════════════════ */
+.mk-final-cta-panel {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mk-final-cta-panel::before {
+    display: none;
+}
+
+.mk-cta-text { display: grid; gap: 6px; }
+
+.mk-cta-text h2 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+}
+
+.mk-cta-text p {
+    margin: 0;
+    color: var(--gov-ink-500);
+    line-height: 1.55;
+    font-size: 0.88rem;
+}
+
+.mk-cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    min-width: 160px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PRICING PAGE — Clean plan cards
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Pricing hero ──────────────────────────────────────────── */
+.mk-pricing-hero {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.38fr);
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mk-pricing-hero-main { display: grid; gap: 10px; }
+
+.mk-pricing-hero h1 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+.mk-pricing-hero p {
+    margin: 0;
+    color: var(--gov-ink-500);
+    line-height: 1.55;
+    font-size: 0.88rem;
+}
+
+/* ── Progress stepper ──────────────── */
+.mk-stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 6px 0;
+    margin-top: 4px;
+}
+
+.mk-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gov-ink-400);
+    transition: color 200ms ease;
+    white-space: nowrap;
+}
+
+.mk-step.is-active {
+    color: var(--gov-blue);
+}
+
+.mk-step.is-done {
+    color: var(--gov-green);
+}
+
+.mk-step-number {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--gov-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.64rem;
+    font-weight: 700;
+    transition: all 200ms ease;
+    flex-shrink: 0;
+}
+
+.mk-step.is-active .mk-step-number {
+    border-color: var(--gov-blue);
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+}
+
+.mk-step.is-done .mk-step-number {
+    border-color: var(--gov-green);
+    background: #f0fdf4;
+    color: var(--gov-green);
+}
+
+.mk-step-divider {
+    width: 20px;
+    height: 2px;
+    background: var(--gov-line);
+    margin: 0 8px;
+    border-radius: 0;
+    flex-shrink: 0;
+}
+
+/* ── Pricing side panel ────────────────────────────────────── */
+.mk-pricing-hero-side,
+.mk-selection-summary,
+.mk-pricing-side,
+.mk-faq,
+.mk-final-cta {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+}
+
+.mk-pricing-hero-side {
+    padding: 16px;
+    display: grid;
+    gap: 8px;
+    align-content: start;
+}
+
+.mk-pricing-mode {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.mk-pricing-mode-note {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* ── Selection summary ─────────────────────────────────────── */
+.mk-selection-summary {
+    padding: 20px 22px;
+    display: grid;
+    gap: 18px;
+    border-bottom: 2px solid var(--gov-blue);
+}
+
+.mk-selection-summary-head {
+    display: grid;
+    gap: 6px;
+}
+
+.mk-selection-summary .mk-plan-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+.mk-selection-plan {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.mk-selection-note {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.8rem;
+    line-height: 1.55;
+}
+
+.mk-selection-social {
+    margin: 0;
+    color: var(--gov-blue);
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+/* ── Pricing form ──────────────────────────────────────────── */
+.mk-plan-section,
+.mk-pricing-form {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 24px;
+    display: grid;
+    gap: 16px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PLAN CARDS — Flat government-style cards
+   ══════════════════════════════════════════════════════════════ */
+.mk-plan-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+}
+
+.mk-plan-cards-pricing .mk-plan-card { cursor: pointer; }
+
+.mk-plan-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 18px;
+    display: grid;
+    gap: 10px;
+    transition: all 150ms ease;
+}
+
+.mk-plan-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--gov-line);
+    transition: background 150ms ease;
+}
+
+.mk-plan-card:hover,
+.mk-plan-card:focus-within {
+    border-color: var(--gov-blue);
+    background: var(--gov-surface-alt);
+}
+
+.mk-plan-card:hover::before {
+    background: var(--gov-blue);
+}
+
+.mk-plan-card.is-selected,
+.mk-plan-card[data-selected="true"] {
+    border-color: var(--gov-blue);
+    box-shadow: none;
+}
+
+.mk-plan-card.is-selected::before {
+    background: var(--gov-blue);
+}
+
+/* ── Recommended card ───── */
+.mk-plan-card.is-recommended {
+    border-color: var(--gov-blue);
+    background: var(--gov-white);
+    transform: none;
+    box-shadow: none;
+    z-index: 2;
+}
+
+.mk-plan-card.is-recommended::before {
+    width: 4px;
+    background: var(--gov-blue);
+    animation: none;
+}
+
+.mk-plan-card.is-recommended:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ── Enterprise card ──────────────── */
+.mk-plan-card.is-enterprise {
+    border-color: var(--gov-line-strong);
+    background: var(--gov-white);
+}
+
+.mk-plan-card.is-enterprise::before {
+    background: var(--gov-line-strong);
+}
+
+.mk-plan-card.is-enterprise:hover::before {
+    background: var(--gov-ink-400);
+}
+
+/* ── Plan card internals ───────────────────────────────────── */
+.mk-plan-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mk-plan-tag {
+    width: fit-content;
+    min-height: 22px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--gov-blue-100);
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.62rem;
+    font-weight: 700;
+}
+
+.mk-plan-card.is-recommended .mk-plan-tag {
+    border-color: var(--gov-blue-100);
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+}
+
+.mk-plan-card.is-recommended .mk-plan-tag::after {
+    display: none;
+}
+
+.mk-plan-card.is-enterprise .mk-plan-tag {
+    border-color: var(--gov-amber-100);
+    background: #fef3e2;
+    color: var(--gov-amber);
+}
+
+.mk-plan-head { display: grid; gap: 5px; }
+
+.mk-plan-name {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+}
+
+.mk-plan-price {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.mk-plan-price span {
+    color: var(--gov-ink-500);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.mk-plan-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.mk-plan-meta span {
+    min-height: 22px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--gov-line);
+    background: var(--gov-surface-alt);
+    color: var(--gov-ink-500);
+    padding: 0 9px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.mk-plan-meta strong {
+    color: var(--gov-ink-900);
+    margin-right: 4px;
+}
+
+.mk-plan-desc {
+    margin: 0;
+    color: var(--gov-ink-500);
+    line-height: 1.55;
+    min-height: 46px;
+    font-size: 0.9rem;
+}
+
+/* ── Psychology elements ───────────────────────────────────── */
+.mk-plan-psych { display: grid; gap: 8px; }
+
+.mk-plan-social {
+    margin: 0;
+    color: var(--gov-blue);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.5;
+    padding: 8px 10px;
+    border-radius: 0;
+    background: var(--gov-blue-50);
+    border-left: 3px solid var(--gov-blue);
+}
+
+.mk-plan-social.is-recommended {
+    color: var(--gov-blue);
+    border-left-color: var(--gov-blue);
+    background: var(--gov-blue-50);
+}
+
+.mk-plan-social.is-enterprise {
+    color: var(--gov-amber);
+    border-left-color: var(--gov-amber);
+    background: var(--gov-amber-100);
+}
+
+.mk-plan-anchor {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.76rem;
+}
+
+/* ── Confidence meter ───────────────────────────── */
+.mk-plan-confidence { display: grid; gap: 5px; }
+
+.mk-plan-confidence-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--gov-ink-500);
+    font-size: 0.71rem;
+    font-weight: 700;
+}
+
+.mk-plan-confidence-head strong {
+    color: var(--gov-blue);
+    font-size: 0.78rem;
+}
+
+.mk-plan-meter {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 6px;
+    border-radius: var(--radius-xs);
+    background: var(--gov-line-soft);
+    overflow: hidden;
+}
+
+.mk-plan-meter > span {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: var(--radius-xs);
+    background: var(--gov-blue);
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.mk-plan-meter.is-animated > span {
+    width: var(--mk-meter-width, 0%);
+}
+
+/* ── Feature list ──────────────────────────────────────────── */
+.mk-plan-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 7px;
+}
+
+.mk-plan-list li {
+    position: relative;
+    margin: 0;
+    padding-left: 22px;
+    color: var(--gov-ink-500);
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.mk-plan-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--gov-blue-50);
+    border: 1px solid var(--gov-blue-100);
+}
+
+.mk-plan-list li::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 9px;
+    width: 6px;
+    height: 3px;
+    border-left: 1.5px solid var(--gov-blue);
+    border-bottom: 1.5px solid var(--gov-blue);
+    transform: rotate(-45deg);
+}
+
+/* ── Plan card footer ──────────────────────────────────────── */
+.mk-plan-foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 8px;
+    border-top: 1px solid var(--gov-line);
+}
+
+.mk-pill {
+    min-height: 22px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--gov-blue-100);
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+    padding: 0 9px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.mk-plan-foot-score {
+    color: var(--gov-ink-500);
+    font-size: 0.71rem;
+    font-weight: 600;
+}
+
+/* ── Pricing side panel (outside form) ────────────────────── */
+.mk-pricing-side {
+    padding: 20px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.mk-pricing-side h2 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1.2rem;
+    font-weight: 700;
+    grid-column: 1 / -1;
+}
+
+.mk-side-block {
+    border-top: 1px solid var(--gov-line);
+    padding-top: 10px;
+    display: grid;
+    gap: 5px;
+}
+
+.mk-side-block:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.mk-side-block h3 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mk-side-block h3 .mk-step-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.64rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.mk-side-block p {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.82rem;
+    line-height: 1.54;
+}
+
+/* ── Pricing actions ───────────────────────────────────────── */
+.mk-pricing-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.mk-live-region {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   COMPARISON TABLE — Flat government-style
+   ══════════════════════════════════════════════════════════════ */
+.mk-compare-section {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: none;
+    padding: 24px;
+    display: grid;
+    gap: 16px;
+}
+
+.mk-compare-table-wrap {
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    overflow-x: auto;
+}
+
+.mk-compare-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+.mk-compare-table th,
+.mk-compare-table td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gov-line);
+}
+
+.mk-compare-table th {
+    color: var(--gov-ink-500);
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--gov-surface-alt);
+}
+
+.mk-compare-table thead th {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Growth column highlight in comparison */
+.mk-compare-table thead th:nth-child(3),
+.mk-compare-table tbody td:nth-child(3) {
+    background: var(--gov-blue-50);
+}
+
+.mk-compare-table thead th:nth-child(3) {
+    color: var(--gov-blue);
+    font-weight: 700;
+}
+
+.mk-compare-table tbody tr:hover td {
+    background: #eff6ff;
+}
+
+.mk-compare-table tbody tr:hover td:nth-child(3) {
+    background: var(--gov-blue-50);
+}
+
+.mk-compare-table tbody th {
+    color: var(--gov-ink-900);
+    font-size: 0.84rem;
+    font-weight: 700;
+    background: var(--gov-white);
+}
+
+.mk-compare-table td {
+    color: var(--gov-ink-500);
+    font-size: 0.82rem;
+}
+
+.mk-compare-table td.is-on { color: var(--gov-green); font-weight: 700; }
+.mk-compare-table td.is-off { color: var(--gov-ink-300); font-style: italic; }
+
+/* ══════════════════════════════════════════════════════════════
+   PRICING BOTTOM — FAQ + Final CTA
+   ══════════════════════════════════════════════════════════════ */
+.mk-pricing-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+    gap: 16px;
+}
+
+/* ── FAQ accordion ─────────────────────────────────────────── */
+.mk-faq,
+.mk-final-cta {
+    padding: 22px;
+    display: grid;
+    gap: 10px;
+}
+
+.mk-faq h2,
+.mk-final-cta h2 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+}
+
+.mk-faq-item {
+    border-top: 1px solid var(--gov-line);
+    overflow: hidden;
+}
+
+.mk-faq-item:first-of-type {
+    border-top: none;
+}
+
+.mk-faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 0 12px;
+    cursor: pointer;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font: inherit;
+    color: var(--gov-ink-900);
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: color 200ms ease;
+}
+
+.mk-faq-question:hover {
+    color: var(--gov-blue);
+}
+
+.mk-faq-chevron {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--gov-ink-400);
+    transition: transform 300ms ease;
+}
+
+.mk-faq-item.is-open .mk-faq-chevron {
+    transform: rotate(180deg);
+}
+
+.mk-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 400ms cubic-bezier(0.25, 0.8, 0.25, 1), padding 300ms ease;
+    padding: 0;
+}
+
+.mk-faq-item.is-open .mk-faq-answer {
+    max-height: 300px;
+    padding-bottom: 12px;
+}
+
+.mk-faq-answer p {
+    margin: 0;
+    color: var(--gov-ink-500);
+    font-size: 0.86rem;
+    line-height: 1.6;
+}
+
+/* Legacy FAQ support */
+.mk-faq article {
+    border-top: 1px solid var(--gov-line);
+    padding-top: 10px;
+    display: grid;
+    gap: 4px;
+}
+
+.mk-faq article:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.mk-faq article h3 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.mk-faq p,
+.mk-final-cta p {
+    margin: 0;
+    color: var(--gov-ink-500);
+    line-height: 1.56;
+    font-size: 0.88rem;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MODAL / LOADING OVERLAYS
+   ══════════════════════════════════════════════════════════════ */
+.mk-modal-open { overflow: hidden; }
+
+.mk-plan-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    padding: 20px;
+    display: grid;
+    place-items: center;
+    background: rgba(11, 31, 58, 0.5);
+    backdrop-filter: blur(6px);
+}
+
+.mk-plan-modal {
+    position: relative;
+    width: min(560px, 100%);
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    gap: 12px;
+    padding: 26px;
+}
+
+.mk-plan-modal-close {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    color: var(--gov-ink-500);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 200ms ease;
+}
+
+.mk-plan-modal-close:hover {
+    color: var(--gov-ink-900);
+    background: var(--gov-surface-alt);
+    border-color: var(--gov-blue);
+}
+
+.mk-plan-modal h2 {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1.5rem;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.mk-plan-modal-name {
+    margin: 0;
+    color: var(--gov-ink-900);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.mk-plan-modal-price {
+    margin: 0;
+    color: var(--gov-blue);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.mk-plan-modal-copy {
+    margin: 0;
+    color: var(--gov-ink-500);
+    line-height: 1.54;
+}
+
+.mk-plan-modal-points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 7px;
+}
+
+.mk-plan-modal-points li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--gov-ink-500);
+    font-size: 0.84rem;
+    line-height: 1.5;
+}
+
+.mk-plan-modal-points li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gov-blue-50);
+    border: 1px solid var(--gov-blue-100);
+}
+
+.mk-plan-modal-points li::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 9px;
+    width: 5px;
+    height: 3px;
+    border-left: 1.5px solid var(--gov-blue);
+    border-bottom: 1.5px solid var(--gov-blue);
+    transform: rotate(-45deg);
+}
+
+.mk-plan-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ── Loading overlay ───────────────────────────────────────── */
+.mk-loading-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background: rgba(11, 31, 58, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.mk-loading-card {
+    width: min(360px, calc(100% - 24px));
+    border-radius: 0;
+    border: 1px solid var(--gov-line);
+    background: var(--gov-white);
+    color: var(--gov-ink-900);
+    padding: 24px;
+    display: grid;
+    gap: 8px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.mk-loading-spinner {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 4px;
+    border-radius: 999px;
+    border: 3px solid var(--gov-line);
+    border-top-color: var(--gov-blue);
+    animation: mk-spin 0.9s linear infinite;
+}
+
+.mk-loading-title {
+    margin: 0;
+    font-size: 0.96rem;
+    font-weight: 700;
+}
+
+.mk-loading-copy {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--gov-ink-500);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REVEAL ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(18px) scale(0.99);
+}
+
+.mk-ready [data-reveal] {
+    animation: mk-reveal 600ms cubic-bezier(0.2, 1, 0.3, 1) forwards;
+    animation-delay: var(--mk-delay, 0s);
+}
+
+/* Scroll-triggered reveals */
+[data-scroll-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms cubic-bezier(0.2, 1, 0.3, 1), transform 600ms cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+[data-scroll-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes mk-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes mk-reveal {
+    from { opacity: 0; transform: translateY(18px) scale(0.99); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Counter animation */
+@keyframes mk-count-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mk-counter-animated {
+    animation: mk-count-up 400ms ease-out forwards;
+}
+
+/* ── Ensure [hidden] works reliably ──────────────────────── */
+[hidden] {
+    display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+    .mk-hero-panel,
+    .mk-pricing-hero,
+    .mk-pricing-bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .mk-pricing-side {
+        position: static;
+    }
+
+    .mk-matrix-header,
+    .mk-matrix-row {
+        grid-template-columns: 1fr 100px 100px 110px;
+    }
+
+    .mk-plan-card.is-recommended {
+        transform: none;
+    }
+
+    .mk-plan-card.is-recommended:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 860px) {
+    .mk-shell {
+        padding: 16px 16px 56px;
+    }
+
+    .mk-topbar {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        position: relative;
+        top: 0;
+    }
+
+    .mk-nav {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .mk-hero-actions,
+    .mk-pricing-actions,
+    .mk-plan-modal-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .mk-btn { width: 100%; }
+
+    .mk-plan-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .mk-bento-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .mk-final-cta-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .mk-cta-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-width: unset;
+    }
+
+    .mk-matrix-header,
+    .mk-matrix-row {
+        grid-template-columns: 1fr 80px 80px 90px;
+    }
+
+    .mk-hero-panel {
+        padding: 28px 24px;
+    }
+
+    .mk-social-proof {
+        justify-content: center;
+    }
+
+    .mk-stepper {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 640px) {
+    .mk-shell {
+        padding: 12px 12px 48px;
+        gap: 14px;
+    }
+
+    .mk-hero-panel,
+    .mk-bento-panel,
+    .mk-modules-panel,
+    .mk-final-cta-panel,
+    .mk-plan-section,
+    .mk-pricing-hero,
+    .mk-pricing-form,
+    .mk-compare-section {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .mk-bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mk-brand strong { font-size: 1rem; }
+
+    .mk-hero-main h1,
+    .mk-pricing-hero h1 {
+        font-size: clamp(1.65rem, 8vw, 2.2rem);
+    }
+
+    .mk-plan-modal { padding: 18px; }
+
+    .mk-matrix-header,
+    .mk-matrix-row {
+        grid-template-columns: 1fr 80px 80px;
+    }
+
+    .mk-matrix-header > div:last-child,
+    .mk-matrix-row    > div:last-child {
+        display: none;
+    }
+
+    .mk-trust-row {
+        gap: 12px;
+    }
+
+    .mk-social-proof {
+        padding: 16px 18px;
+        gap: 16px;
+    }
+
+    .mk-proof-number {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 390px) {
+    .mk-btn {
+        min-height: 46px;
+        font-size: 0.83rem;
+    }
+
+    .mk-plan-name  { font-size: 1.08rem; }
+    .mk-plan-price { font-size: 1.3rem; }
+
+    .mk-nav a {
+        font-size: 0.73rem;
+        padding: 8px 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    [data-scroll-reveal],
+    .mk-btn,
+    .mk-plan-card,
+    .mk-bento-card,
+    .mk-plan-meter > span {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    .mk-brand-dot,
+    .mk-hero-panel::before,
+    .mk-hero-panel::after,
+    .mk-plan-card.is-recommended::before,
+    .mk-plan-card.is-recommended .mk-plan-tag::after,
+    .mk-status-dot.is-live::before {
+        animation: none !important;
+    }
+}
