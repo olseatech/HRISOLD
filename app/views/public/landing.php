@@ -1,5 +1,5 @@
 <?php
-$planRows      = is_array($plans ?? null) ? $plans : [];
+$planRows      = $plans ?? [];
 $hasPlans      = $planRows !== [];
 $isTestingMode = is_subscription_testing_mode();
 $planCount     = max(1, count($planRows));
