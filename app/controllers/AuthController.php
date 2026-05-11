@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\Audit;
 use App\Core\Auth;
 use App\Core\Controller;
 use App\Core\CSRF;
 use App\Core\Session;
+use App\Models\User;
 
 final class AuthController extends Controller
 {
@@ -79,6 +81,65 @@ final class AuthController extends Controller
     {
         Auth::logout();
         $this->redirect('/login');
+    }
+
+    public function showChangePassword(): void
+    {
+        $this->view('auth/change-password', [
+            'title'  => 'Change Password',
+            'csrf'   => CSRF::token(),
+            'error'  => Session::pullFlash('error'),
+            'errors' => Session::pullFlash('errors', []),
+            'success'=> Session::pullFlash('success'),
+        ]);
+    }
+
+    public function changePassword(): void
+    {
+        $token = $_POST['_csrf'] ?? null;
+        if (!CSRF::verify(is_string($token) ? $token : null)) {
+            Session::flash('error', 'Session token invalid. Please try again.');
+            $this->redirect('/change-password');
+        }
+
+        $authUser    = Auth::user();
+        $userId      = (int) ($authUser['id'] ?? 0);
+        $currentPass = (string) ($_POST['current_password'] ?? '');
+        $newPass     = (string) ($_POST['new_password'] ?? '');
+        $confirmPass = (string) ($_POST['confirm_password'] ?? '');
+
+        $errors = [];
+
+        if ($currentPass === '') {
+            $errors['current_password'] = 'Current password is required.';
+        }
+        if (strlen($newPass) < 8) {
+            $errors['new_password'] = 'New password must be at least 8 characters.';
+        }
+        if ($newPass !== $confirmPass) {
+            $errors['confirm_password'] = 'Passwords do not match.';
+        }
+
+        if ($errors !== []) {
+            Session::flash('errors', $errors);
+            Session::flash('error', 'Please fix the errors below.');
+            $this->redirect('/change-password');
+        }
+
+        $userModel = new User();
+        $user      = $userModel->findById($userId);
+
+        if (!$user || !password_verify($currentPass, (string) ($user['password_hash'] ?? ''))) {
+            Session::flash('errors', ['current_password' => 'Current password is incorrect.']);
+            Session::flash('error', 'Current password is incorrect.');
+            $this->redirect('/change-password');
+        }
+
+        $userModel->updatePassword($userId, password_hash($newPass, PASSWORD_BCRYPT));
+        Audit::log('auth', 'UPDATE', $userId, null, ['action' => 'password_changed']);
+
+        Session::flash('success', 'Password changed successfully.');
+        $this->redirect('/change-password');
     }
 
     // ── IP rate limiting helpers ──────────────────────────────────

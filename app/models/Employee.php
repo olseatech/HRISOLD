@@ -69,8 +69,26 @@ final class Employee extends Model
     public function find(int $id): ?array
     {
         return $this->fetchOne(
-            'SELECT * FROM hris_employees WHERE id = :id LIMIT 1',
+            'SELECT e.*,
+                    d.department_name,
+                    ds.designation_name
+             FROM hris_employees e
+             LEFT JOIN hris_departments d  ON d.id = e.department_id
+             LEFT JOIN hris_designations ds ON ds.id = e.designation_id
+             WHERE e.id = :id LIMIT 1',
             ['id' => $id]
+        );
+    }
+
+    public function allActive(): array
+    {
+        return $this->fetchAll(
+            'SELECT id, employee_code,
+                    CONCAT(first_name, " ", last_name) AS full_name,
+                    first_name, last_name, employment_status
+             FROM hris_employees
+             WHERE employment_status != "Terminated"
+             ORDER BY last_name ASC, first_name ASC'
         );
     }
 

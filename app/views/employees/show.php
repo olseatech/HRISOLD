@@ -44,6 +44,53 @@ $canUpdateEmployee = can('employees.update');
 
     <?php require __DIR__ . '/../partials/alerts.php'; ?>
 
+    <!-- Quick links to related modules -->
+    <section style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:var(--space-3); margin-bottom:var(--space-5);">
+        <?php $empId = (int) ($employee['id'] ?? 0); ?>
+        <?php if (can('pds.view')): ?>
+        <a href="/pds?employee_id=<?= $empId ?>" class="card card-shine" style="padding:var(--space-3) var(--space-4); text-decoration:none; display:flex; align-items:center; gap:10px; border:1px solid var(--border);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6z"/><polyline points="12 2 12 6 16 6"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="12" x2="13" y2="12"/></svg>
+            <span style="font-size:13px; font-weight:600;">PDS</span>
+        </a>
+        <?php endif; ?>
+        <?php if (can('service_records.view')): ?>
+        <a href="/service-records?employee_id=<?= $empId ?>" class="card card-shine" style="padding:var(--space-3) var(--space-4); text-decoration:none; display:flex; align-items:center; gap:10px; border:1px solid var(--border);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="14" height="16" rx="1"/><path d="M7 6h6M7 9h6M7 12h4"/><circle cx="14.5" cy="14.5" r="3"/></svg>
+            <span style="font-size:13px; font-weight:600;">Service Record</span>
+        </a>
+        <?php endif; ?>
+        <?php if (can('clearances.view')): ?>
+        <a href="/clearances?employee_id=<?= $empId ?>" class="card card-shine" style="padding:var(--space-3) var(--space-4); text-decoration:none; display:flex; align-items:center; gap:10px; border:1px solid var(--border);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L3 5v5c0 4.4 3 8.1 7 9 4-0.9 7-4.6 7-9V5l-7-3z"/><path d="M7 10l2 2 4-4"/></svg>
+            <span style="font-size:13px; font-weight:600;">Clearance</span>
+        </a>
+        <?php endif; ?>
+        <?php if (can('appointments.view')): ?>
+        <a href="/appointments?employee_id=<?= $empId ?>" class="card card-shine" style="padding:var(--space-3) var(--space-4); text-decoration:none; display:flex; align-items:center; gap:10px; border:1px solid var(--border);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="13" rx="1"/><path d="M3 8h14M7 2v3M13 2v3"/></svg>
+            <span style="font-size:13px; font-weight:600;">Appointments</span>
+        </a>
+        <?php endif; ?>
+        <?php if (can('documents.view')): ?>
+        <a href="/documents?employee_id=<?= $empId ?>" class="card card-shine" style="padding:var(--space-3) var(--space-4); text-decoration:none; display:flex; align-items:center; gap:10px; border:1px solid var(--border);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6z"/><polyline points="11 2 11 6 15 6"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="12" x2="13" y2="12"/></svg>
+            <span style="font-size:13px; font-weight:600;">201 Documents</span>
+        </a>
+        <?php endif; ?>
+        <?php if (can('leave.view')): ?>
+        <a href="/leave?employee_id=<?= $empId ?>" class="card card-shine" style="padding:var(--space-3) var(--space-4); text-decoration:none; display:flex; align-items:center; gap:10px; border:1px solid var(--border);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v3M16 2v3"/></svg>
+            <span style="font-size:13px; font-weight:600;">Leave</span>
+        </a>
+        <?php endif; ?>
+        <?php if (can('reports.view')): ?>
+        <a href="/reports?employee_id=<?= $empId ?>" class="card card-shine" style="padding:var(--space-3) var(--space-4); text-decoration:none; display:flex; align-items:center; gap:10px; border:1px solid var(--border);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span style="font-size:13px; font-weight:600;">Reports</span>
+        </a>
+        <?php endif; ?>
+    </section>
+
     <section class="emp-profile-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: var(--space-6);">
         
         <article class="card card-shine">

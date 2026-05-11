@@ -34,7 +34,21 @@ return [
 
         '/payroll' => ['controller' => 'PayrollController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:payroll.view']],
 
-        '/settings' => ['controller' => 'SettingsController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:settings.manage']],
+        '/change-password' => ['controller' => 'AuthController', 'method' => 'showChangePassword', 'middleware' => ['auth']],
+
+        '/settings'              => ['controller' => 'SettingsController', 'method' => 'index',        'middleware' => ['auth', 'subscription', 'permission:settings.manage']],
+        '/settings/departments'  => ['controller' => 'SettingsController', 'method' => 'departments',  'middleware' => ['auth', 'subscription', 'permission:settings.manage']],
+        '/settings/designations' => ['controller' => 'SettingsController', 'method' => 'designations', 'middleware' => ['auth', 'subscription', 'permission:settings.manage']],
+        '/settings/leave-types'  => ['controller' => 'SettingsController', 'method' => 'leaveTypes',   'middleware' => ['auth', 'subscription', 'permission:settings.manage']],
+        '/settings/salary-grades'=> ['controller' => 'SettingsController', 'method' => 'salaryGrades', 'middleware' => ['auth', 'subscription', 'permission:settings.manage']],
+
+        '/my-service-record' => ['controller' => 'ServiceRecordController', 'method' => 'myServiceRecords', 'middleware' => ['auth', 'permission:service_records.view']],
+
+        '/reports'                     => ['controller' => 'ReportsController', 'method' => 'index',              'middleware' => ['auth', 'permission:reports.view']],
+        '/reports/pds/{id}'            => ['controller' => 'ReportsController', 'method' => 'printPds',           'middleware' => ['auth', 'permission:reports.view']],
+        '/reports/service-record/{id}' => ['controller' => 'ReportsController', 'method' => 'printServiceRecord', 'middleware' => ['auth', 'permission:reports.view']],
+        '/reports/certification/{id}'  => ['controller' => 'ReportsController', 'method' => 'printCertification', 'middleware' => ['auth', 'permission:reports.view']],
+        '/reports/clearance/{id}'      => ['controller' => 'ReportsController', 'method' => 'printClearance',     'middleware' => ['auth', 'permission:reports.view']],
 
         '/pds' => ['controller' => 'PdsController', 'method' => 'index', 'middleware' => ['auth', 'permission:pds.view']],
         '/pds/create' => ['controller' => 'PdsController', 'method' => 'create', 'middleware' => ['auth', 'permission:pds.create']],
@@ -89,9 +103,27 @@ return [
         '/payroll/grades' => ['controller' => 'PayrollController', 'method' => 'storeGrade', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:payroll.view']],
         '/payroll/salaries' => ['controller' => 'PayrollController', 'method' => 'storeSalary', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:payroll.view']],
 
-        '/settings/company' => ['controller' => 'SettingsController', 'method' => 'saveCompany', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
-        '/settings/system' => ['controller' => 'SettingsController', 'method' => 'saveSystem', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
-        '/settings/roles/{id}/toggle' => ['controller' => 'SettingsController', 'method' => 'toggleRole', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/change-password' => ['controller' => 'AuthController', 'method' => 'changePassword', 'middleware' => ['auth', 'csrf']],
+
+        '/settings/company'       => ['controller' => 'SettingsController', 'method' => 'saveCompany',       'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/system'        => ['controller' => 'SettingsController', 'method' => 'saveSystem',        'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/roles/{id}/toggle' => ['controller' => 'SettingsController', 'method' => 'toggleRole',   'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+
+        '/settings/departments'                => ['controller' => 'SettingsController', 'method' => 'storeDepartment',    'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/departments/{id}/update'    => ['controller' => 'SettingsController', 'method' => 'updateDepartment',   'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/departments/{id}/delete'    => ['controller' => 'SettingsController', 'method' => 'destroyDepartment',  'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+
+        '/settings/designations'               => ['controller' => 'SettingsController', 'method' => 'storeDesignation',   'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/designations/{id}/update'   => ['controller' => 'SettingsController', 'method' => 'updateDesignation',  'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/designations/{id}/delete'   => ['controller' => 'SettingsController', 'method' => 'destroyDesignation', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+
+        '/settings/leave-types'                => ['controller' => 'SettingsController', 'method' => 'storeLeaveType',     'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/leave-types/{id}/update'    => ['controller' => 'SettingsController', 'method' => 'updateLeaveType',    'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/leave-types/{id}/delete'    => ['controller' => 'SettingsController', 'method' => 'destroyLeaveType',   'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+
+        '/settings/salary-grades'              => ['controller' => 'SettingsController', 'method' => 'storeSalaryGrade',   'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/salary-grades/{id}/update'  => ['controller' => 'SettingsController', 'method' => 'updateSalaryGrade',  'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+        '/settings/salary-grades/{id}/delete'  => ['controller' => 'SettingsController', 'method' => 'destroySalaryGrade', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
 
         '/pds' => ['controller' => 'PdsController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:pds.create']],
         '/pds/{id}/update' => ['controller' => 'PdsController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:pds.update']],

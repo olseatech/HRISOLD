@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\Audit;
+use App\Core\Auth;
 use App\Core\Controller;
 use App\Core\CSRF;
 use App\Core\Session;
@@ -207,6 +208,37 @@ final class ServiceRecordController extends Controller
         }
 
         $this->redirect('/service-records');
+    }
+
+    // -------------------------------------------------------------------------
+    // Employee self-view
+    // -------------------------------------------------------------------------
+
+    public function myServiceRecords(): void
+    {
+        $authUser   = Auth::user();
+        $employeeId = (int) ($authUser['employee_id'] ?? 0);
+
+        if ($employeeId === 0) {
+            $this->view('service-records/my-records', [
+                'title'      => 'My Service Record',
+                'rows'       => [],
+                'current'    => null,
+                'noEmployee' => true,
+                'success'    => Session::pullFlash('success'),
+                'error'      => Session::pullFlash('error'),
+            ]);
+            return;
+        }
+
+        $this->view('service-records/my-records', [
+            'title'      => 'My Service Record',
+            'rows'       => $this->records->findByEmployee($employeeId),
+            'current'    => $this->records->currentForEmployee($employeeId),
+            'noEmployee' => false,
+            'success'    => Session::pullFlash('success'),
+            'error'      => Session::pullFlash('error'),
+        ]);
     }
 
     // -------------------------------------------------------------------------

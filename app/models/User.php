@@ -18,4 +18,17 @@ final class User extends Model
             ]
         );
     }
+
+    public function findById(int $id): ?array
+    {
+        return $this->fetchOne('SELECT * FROM hris_users WHERE id = :id LIMIT 1', ['id' => $id]);
+    }
+
+    public function updatePassword(int $id, string $passwordHash): bool
+    {
+        return $this->execute(
+            'UPDATE hris_users SET password_hash = :hash WHERE id = :id',
+            ['hash' => $passwordHash, 'id' => $id]
+        );
+    }
 }

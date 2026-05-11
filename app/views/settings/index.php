@@ -116,6 +116,40 @@ foreach ($roleRows as $role) {
             </div>
         </form>
     </section>
+    <!-- Lookup tables quick access -->
+    <section class="card" style="margin-bottom:var(--space-5);">
+        <div class="card-head">
+            <h3>Reference / Lookup Tables</h3>
+            <p>Manage dropdown options used throughout the system — departments, positions, leave types, and salary grades.</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:var(--space-4); padding:var(--space-5);">
+            <a href="/settings/departments" class="card card-shine" style="padding:var(--space-4); text-decoration:none; display:flex; align-items:center; gap:12px; border:1px solid var(--border);">
+                <div style="width:36px;height:36px;border-radius:10px;background:var(--blue-50);color:var(--blue-600);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                </div>
+                <div><strong style="font-size:13px;display:block;">Departments</strong><span style="font-size:12px;color:var(--text-muted);">Divisions &amp; Units</span></div>
+            </a>
+            <a href="/settings/designations" class="card card-shine" style="padding:var(--space-4); text-decoration:none; display:flex; align-items:center; gap:12px; border:1px solid var(--border);">
+                <div style="width:36px;height:36px;border-radius:10px;background:var(--teal-50);color:var(--teal-600);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <div><strong style="font-size:13px;display:block;">Positions</strong><span style="font-size:12px;color:var(--text-muted);">Designations</span></div>
+            </a>
+            <a href="/settings/leave-types" class="card card-shine" style="padding:var(--space-4); text-decoration:none; display:flex; align-items:center; gap:12px; border:1px solid var(--border);">
+                <div style="width:36px;height:36px;border-radius:10px;background:var(--amber-50);color:var(--amber-600);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v3M16 2v3"/></svg>
+                </div>
+                <div><strong style="font-size:13px;display:block;">Leave Types</strong><span style="font-size:12px;color:var(--text-muted);">Vacation, Sick, etc.</span></div>
+            </a>
+            <a href="/settings/salary-grades" class="card card-shine" style="padding:var(--space-4); text-decoration:none; display:flex; align-items:center; gap:12px; border:1px solid var(--border);">
+                <div style="width:36px;height:36px;border-radius:10px;background:var(--green-50,#f0fdf4);color:var(--green-600,#16a34a);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>
+                </div>
+                <div><strong style="font-size:13px;display:block;">Salary Grades</strong><span style="font-size:12px;color:var(--text-muted);">Pay grade ranges</span></div>
+            </a>
+        </div>
+    </section>
+
     <section class="card">
         <div class="card-head">
             <h3>Roles</h3>
