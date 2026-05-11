@@ -359,13 +359,14 @@
         pointer-events: auto;
     }
 
-    /* Tighter groups on small sidebar */
-    .nav-group-toggle {
-        padding: 6px 14px 6px 12px;
+    /* Tighter section toggles on narrow sidebar */
+    .snav-toggle,
+    .snav-standalone {
+        padding: 7px 12px;
     }
 
-    .nav-group-items {
-        padding: 0 8px 4px;
+    .snav-link {
+        padding: 6px 10px 6px 32px;
     }
 }
 
@@ -374,10 +375,6 @@
     .sidebar {
         width: 80vw;
         max-width: 290px;
-    }
-
-    .nav-group-toggle {
-        font-size: 0.58rem;
     }
 }
 
@@ -389,9 +386,10 @@
         transition: none !important;
     }
 
-    .nav-group-items {
+    /* Ensure items are visible even without animation */
+    .snav-section.is-open > .snav-items {
         transition: none !important;
-        max-height: none !important;
+        max-height: 640px !important;
         opacity: 1 !important;
     }
 }

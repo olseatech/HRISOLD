@@ -130,120 +130,254 @@
     font-weight: 500;
 }
 
-.sidebar-group {
-    padding: 8px 10px 4px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-label {
-    margin: 0 4px 4px;
-    color: var(--color-text-tertiary);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-}
-
-.sidebar-nav {
-    display: grid;
-    gap: 1px;
-}
+/* .sidebar-group / .sidebar-label / .sidebar-nav removed — replaced by snav-* */
 
 /* ============================================================
-   Collapsible grouped navigation
+   Sectioned collapsible nav  (snav-*)
+   Matches reference: coloured section icons, chevron toggle,
+   indented sub-items with active highlight, animated open/close
    ============================================================ */
-.sidebar-nav-root {
+
+/* Scrollable nav body */
+.snav {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 6px 0 4px;
+    padding: 6px 0 2px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gov-line) transparent;
 }
 
-.nav-group {
-    border-bottom: 1px solid var(--gov-line-soft);
+.snav::-webkit-scrollbar { width: 4px; }
+.snav::-webkit-scrollbar-thumb { background: var(--gov-line); border-radius: 4px; }
+.snav::-webkit-scrollbar-track { background: transparent; }
+
+/* ── Divider between standalone + sections ── */
+.snav-divider {
+    height: 1px;
+    background: var(--gov-line-soft);
+    margin: 6px 14px;
 }
 
-.nav-group:last-child {
-    border-bottom: none;
-}
-
-.nav-group-toggle {
+/* ── Standalone link (Dashboard etc.) ─────── */
+.snav-standalone {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 14px;
+    color: var(--gov-ink-700);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    margin: 1px 8px;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.snav-standalone:hover {
+    background: var(--gov-surface-alt);
+    color: var(--gov-ink-900);
+    text-decoration: none;
+}
+
+.snav-standalone.is-active {
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+    font-weight: 700;
+}
+
+/* ── Section wrapper ───────────────────────── */
+.snav-section {
+    margin-bottom: 2px;
+}
+
+/* ── Section toggle button ─────────────────── */
+.snav-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     width: 100%;
-    padding: 7px 16px 7px 14px;
+    padding: 8px 14px;
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--gov-ink-400);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    gap: 6px;
-    transition: color var(--transition-fast);
-}
-
-.nav-group-toggle:hover {
     color: var(--gov-ink-700);
-}
-
-.nav-group.is-open .nav-group-toggle {
-    color: var(--gov-ink-600, var(--gov-ink-500));
-}
-
-.nav-group-label {
-    flex: 1;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: var(--font-family);
     text-align: left;
+    border-radius: var(--radius-md);
+    margin: 0 0;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    position: relative;
 }
 
-.nav-group-chevron {
+.snav-toggle:hover {
+    background: var(--gov-surface-alt);
+    color: var(--gov-ink-900);
+}
+
+.snav-section.is-open > .snav-toggle {
+    color: var(--gov-ink-900);
+}
+
+.snav-toggle-icon {
+    width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.snav-toggle-label {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.snav-toggle-chevron {
     width: 14px;
     height: 14px;
     display: grid;
     place-items: center;
-    transition: transform var(--transition-default);
     color: var(--gov-ink-300);
     flex-shrink: 0;
+    transition: transform var(--transition-default);
 }
 
-.nav-group-chevron svg {
-    width: 12px;
-    height: 12px;
-    stroke-width: 2.5;
-}
-
-.nav-group.is-open .nav-group-chevron {
+.snav-toggle-chevron.is-open {
     transform: rotate(180deg);
 }
 
-.nav-group-items {
+/* ── Animated sub-items list ───────────────── */
+.snav-items {
     list-style: none;
     margin: 0;
-    padding: 0 10px 6px;
-    display: grid;
-    gap: 1px;
+    padding: 0;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     pointer-events: none;
-    /* Smooth open/close */
-    transition: max-height var(--transition-slow), opacity var(--transition-default);
+    transition: max-height 240ms ease, opacity 160ms ease;
 }
 
-.nav-group.is-open .nav-group-items {
-    max-height: 600px; /* large enough for any group */
+.snav-section.is-open > .snav-items {
+    max-height: 640px;
     opacity: 1;
     pointer-events: auto;
+    padding: 2px 0 6px;
 }
 
-/* Remove default list styling for nav group items */
-.nav-group-items li {
+.snav-items li {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+/* ── Sub-item link ─────────────────────────── */
+.snav-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 12px 6px 36px;  /* 36px = section icon offset */
+    color: var(--gov-ink-500);
+    font-size: 0.845rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    margin: 1px 8px;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    position: relative;
+}
+
+.snav-link:hover {
+    background: var(--gov-surface-alt);
+    color: var(--gov-ink-900);
+    text-decoration: none;
+}
+
+.snav-link.is-active {
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+    font-weight: 700;
+}
+
+.snav-link-icon {
+    width: 14px;
+    height: 14px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.snav-link.is-active .snav-link-icon {
+    opacity: 1;
+}
+
+/* ── Locked item badge ─────────────────────── */
+.snav-link-locked,
+.snav-standalone.snav-link-locked {
+    cursor: pointer;
+}
+
+.snav-item-lock {
+    margin-left: auto;
+    display: grid;
+    place-items: center;
+    color: var(--gov-amber);
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* ── Shared icon wrapper (standalone + footer) */
+.snav-item-icon {
+    width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.snav-item-label {
+    flex: 1;
+}
+
+/* ── Footer account links ──────────────────── */
+.snav-footer-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+    color: var(--gov-ink-500);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.snav-footer-link:hover {
+    background: var(--gov-surface-alt);
+    color: var(--gov-ink-900);
+    text-decoration: none;
+}
+
+.snav-footer-link.is-active {
+    background: var(--gov-blue-50);
+    color: var(--gov-blue);
+}
+
+.snav-footer-logout {
+    color: var(--gov-red);
+}
+
+.snav-footer-logout:hover {
+    background: var(--gov-red-100);
+    color: var(--gov-red);
 }
 
 .nav-link {
