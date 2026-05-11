@@ -46,6 +46,11 @@ return [
         '/appointments/create' => ['controller' => 'AppointmentController', 'method' => 'create', 'middleware' => ['auth', 'permission:appointments.create']],
         '/appointments/{id}' => ['controller' => 'AppointmentController', 'method' => 'show', 'middleware' => ['auth', 'permission:appointments.view']],
         '/appointments/{id}/edit' => ['controller' => 'AppointmentController', 'method' => 'edit', 'middleware' => ['auth', 'permission:appointments.update']],
+
+        '/documents' => ['controller' => 'Document201Controller', 'method' => 'index', 'middleware' => ['auth', 'permission:documents.view']],
+        '/documents/create' => ['controller' => 'Document201Controller', 'method' => 'create', 'middleware' => ['auth', 'permission:documents.manage']],
+        '/documents/{id}' => ['controller' => 'Document201Controller', 'method' => 'show', 'middleware' => ['auth', 'permission:documents.view']],
+        '/documents/{id}/download' => ['controller' => 'Document201Controller', 'method' => 'download', 'middleware' => ['auth', 'permission:documents.view']],
     ],
     'POST' => [
         '/subscribe' => ['controller' => 'LandingController', 'method' => 'subscribe', 'middleware' => ['csrf']],
@@ -90,5 +95,8 @@ return [
         '/appointments' => ['controller' => 'AppointmentController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:appointments.create']],
         '/appointments/{id}/update' => ['controller' => 'AppointmentController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:appointments.update']],
         '/appointments/{id}/delete' => ['controller' => 'AppointmentController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:appointments.delete']],
+
+        '/documents' => ['controller' => 'Document201Controller', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:documents.manage']],
+        '/documents/{id}/delete' => ['controller' => 'Document201Controller', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:documents.delete']],
     ],
 ];
