@@ -133,9 +133,8 @@
 /* .sidebar-group / .sidebar-label / .sidebar-nav removed — replaced by snav-* */
 
 /* ============================================================
-   Sectioned collapsible nav  (snav-*)
-   Matches reference: coloured section icons, chevron toggle,
-   indented sub-items with active highlight, animated open/close
+   Collapsible grouped nav (snav-*)
+   Icons + spacing identical to old flat nav-link style.
    ============================================================ */
 
 /* Scrollable nav body */
@@ -143,115 +142,117 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 6px 0 2px;
+    padding: 4px 0;
     scrollbar-width: thin;
     scrollbar-color: var(--gov-line) transparent;
 }
-
-.snav::-webkit-scrollbar { width: 4px; }
+.snav::-webkit-scrollbar       { width: 4px; }
 .snav::-webkit-scrollbar-thumb { background: var(--gov-line); border-radius: 4px; }
 .snav::-webkit-scrollbar-track { background: transparent; }
 
-/* ── Divider between standalone + sections ── */
+/* Shared thin divider */
 .snav-divider {
     height: 1px;
     background: var(--gov-line-soft);
-    margin: 6px 14px;
+    margin: 4px 12px;
 }
 
-/* ── Standalone link (Dashboard etc.) ─────── */
-.snav-standalone {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 14px;
-    color: var(--gov-ink-700);
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: var(--radius-md);
-    margin: 1px 8px;
-    transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.snav-standalone:hover {
-    background: var(--gov-surface-alt);
-    color: var(--gov-ink-900);
-    text-decoration: none;
-}
-
-.snav-standalone.is-active {
-    background: var(--gov-blue-50);
-    color: var(--gov-blue);
-    font-weight: 700;
-}
-
-/* ── Section wrapper ───────────────────────── */
-.snav-section {
-    margin-bottom: 2px;
-}
-
-/* ── Section toggle button ─────────────────── */
-.snav-toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    padding: 8px 14px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--gov-ink-700);
-    font-size: 0.875rem;
-    font-weight: 600;
-    font-family: var(--font-family);
-    text-align: left;
-    border-radius: var(--radius-md);
-    margin: 0 0;
-    transition: background var(--transition-fast), color var(--transition-fast);
-    position: relative;
-}
-
-.snav-toggle:hover {
-    background: var(--gov-surface-alt);
-    color: var(--gov-ink-900);
-}
-
-.snav-section.is-open > .snav-toggle {
-    color: var(--gov-ink-900);
-}
-
-.snav-toggle-icon {
+/* ── Shared icon cell (all nav rows) ─────── */
+.snav-icon {
     width: 18px;
     height: 18px;
     display: grid;
     place-items: center;
     flex-shrink: 0;
+    color: currentColor;
+}
+.snav-icon svg { width: 16px; height: 16px; }
+
+/* ── Standalone link (Dashboard) ─────────── */
+.snav-standalone {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-text-secondary);
+    padding: 7px 12px;
+    border-radius: var(--radius-md);
+    border-left: 3px solid transparent;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    min-height: 34px;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+.snav-standalone:hover {
+    color: var(--color-text-primary);
+    background: var(--gov-surface-alt);
+    text-decoration: none;
+}
+.snav-standalone.is-active {
+    color: var(--gov-blue);
+    background: var(--gov-blue-50);
+    border-left-color: var(--gov-blue);
+    font-weight: 700;
 }
 
+/* ── Section wrapper ──────────────────────── */
+.snav-section { margin-bottom: 1px; }
+
+/* ── Section toggle — looks like nav-link + chevron ── */
+.snav-toggle {
+    display: grid;
+    grid-template-columns: 18px 1fr 12px;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 7px 12px;
+    border: none;
+    border-left: 3px solid transparent;
+    border-radius: var(--radius-md);
+    background: none;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: var(--font-family);
+    text-align: left;
+    min-height: 34px;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+.snav-toggle:hover {
+    color: var(--color-text-primary);
+    background: var(--gov-surface-alt);
+}
+/* Section containing active page: header tinted blue */
+.snav-toggle.has-active {
+    color: var(--gov-blue);
+    background: var(--gov-blue-50);
+    border-left-color: var(--gov-blue);
+    font-weight: 700;
+}
 .snav-toggle-label {
     flex: 1;
-    min-width: 0;
+    text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.snav-toggle-chevron {
-    width: 14px;
-    height: 14px;
+/* ── Chevron ──────────────────────────────── */
+.snav-chevron {
+    width: 12px;
+    height: 12px;
     display: grid;
     place-items: center;
     color: var(--gov-ink-300);
     flex-shrink: 0;
     transition: transform var(--transition-default);
 }
+.snav-chevron svg { width: 12px; height: 12px; }
+.snav-chevron.is-open { transform: rotate(180deg); }
 
-.snav-toggle-chevron.is-open {
-    transform: rotate(180deg);
-}
-
-/* ── Animated sub-items list ───────────────── */
+/* ── Animated sub-items container ─────────── */
 .snav-items {
     list-style: none;
     margin: 0;
@@ -260,70 +261,47 @@
     max-height: 0;
     opacity: 0;
     pointer-events: none;
-    transition: max-height 240ms ease, opacity 160ms ease;
+    transition: max-height 220ms ease, opacity 150ms ease;
 }
-
 .snav-section.is-open > .snav-items {
-    max-height: 640px;
+    max-height: 680px;
     opacity: 1;
     pointer-events: auto;
-    padding: 2px 0 6px;
+    padding: 2px 0 4px;
 }
+.snav-items li { list-style: none; margin: 0; padding: 0; }
 
-.snav-items li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-/* ── Sub-item link ─────────────────────────── */
+/* ── Sub-item link ────────────────────────── */
 .snav-link {
-    display: flex;
+    display: grid;
+    grid-template-columns: 18px 1fr;
     align-items: center;
-    gap: 9px;
-    padding: 6px 12px 6px 36px;  /* 36px = section icon offset */
-    color: var(--gov-ink-500);
-    font-size: 0.845rem;
-    font-weight: 500;
-    text-decoration: none;
+    gap: 10px;
+    padding: 6px 12px 6px 30px; /* 30px indent = visual hierarchy under section */
+    color: var(--color-text-secondary);
     border-radius: var(--radius-md);
-    margin: 1px 8px;
+    border-left: 3px solid transparent;
+    font-weight: 500;
+    font-size: 0.855rem;
+    text-decoration: none;
+    min-height: 30px;
     transition: background var(--transition-fast), color var(--transition-fast);
-    position: relative;
 }
-
 .snav-link:hover {
+    color: var(--color-text-primary);
     background: var(--gov-surface-alt);
-    color: var(--gov-ink-900);
     text-decoration: none;
 }
-
 .snav-link.is-active {
-    background: var(--gov-blue-50);
     color: var(--gov-blue);
+    background: var(--gov-blue-50);
+    border-left-color: var(--gov-blue);
     font-weight: 700;
 }
 
-.snav-link-icon {
-    width: 14px;
-    height: 14px;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    opacity: 0.7;
-}
-
-.snav-link.is-active .snav-link-icon {
-    opacity: 1;
-}
-
-/* ── Locked item badge ─────────────────────── */
-.snav-link-locked,
-.snav-standalone.snav-link-locked {
-    cursor: pointer;
-}
-
-.snav-item-lock {
+/* ── Locked items ─────────────────────────── */
+.snav-locked { cursor: pointer; }
+.snav-lock {
     margin-left: auto;
     display: grid;
     place-items: center;
@@ -333,52 +311,34 @@
     flex-shrink: 0;
 }
 
-/* ── Shared icon wrapper (standalone + footer) */
-.snav-item-icon {
-    width: 18px;
-    height: 18px;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-}
-
-.snav-item-label {
-    flex: 1;
-}
-
-/* ── Footer account links ──────────────────── */
+/* ── Footer links ─────────────────────────── */
 .snav-footer-link {
-    display: flex;
+    display: grid;
+    grid-template-columns: 18px 1fr;
     align-items: center;
     gap: 10px;
     padding: 7px 12px;
-    color: var(--gov-ink-500);
-    font-size: 0.82rem;
+    border-left: 3px solid transparent;
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    font-size: 0.845rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: var(--radius-md);
+    min-height: 32px;
     transition: background var(--transition-fast), color var(--transition-fast);
 }
-
 .snav-footer-link:hover {
     background: var(--gov-surface-alt);
-    color: var(--gov-ink-900);
+    color: var(--color-text-primary);
     text-decoration: none;
 }
-
 .snav-footer-link.is-active {
     background: var(--gov-blue-50);
     color: var(--gov-blue);
+    border-left-color: var(--gov-blue);
 }
-
-.snav-footer-logout {
-    color: var(--gov-red);
-}
-
-.snav-footer-logout:hover {
-    background: var(--gov-red-100);
-    color: var(--gov-red);
-}
+.snav-footer-logout       { color: var(--gov-red); }
+.snav-footer-logout:hover { background: var(--gov-red-100); color: var(--gov-red); }
 
 .nav-link {
     display: grid;
