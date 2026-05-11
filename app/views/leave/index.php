@@ -1,190 +1,158 @@
 <?php
-$leaveRequests = is_array($requests ?? null) ? $requests : [];
+$leaveRequests  = is_array($requests ?? null) ? $requests : [];
 $employeeOptions = is_array($employees ?? null) ? $employees : [];
-$typeOptions = is_array($leaveTypes ?? null) ? $leaveTypes : [];
-$statusList = is_array($statusOptions ?? null) ? $statusOptions : [];
-$oldInput = is_array($old ?? null) ? $old : [];
-$currentEmployeeRecord = is_array($currentEmployee ?? null) ? $currentEmployee : [];
-$isSelfServiceUser = (bool) ($isSelfService ?? false);
+$statusList     = is_array($statusOptions ?? null) ? $statusOptions : [];
 $canRequestLeave = can('leave.request');
 $canApproveLeave = can('leave.approve');
 
-$currentQuery = (string) ($query ?? '');
+$currentQuery  = (string) ($query ?? '');
 $currentStatus = (string) ($status ?? '');
-$currentPage = (int) ($page ?? 1);
-$pageCount = (int) ($totalPages ?? 1);
-$totalCount = (int) ($total ?? 0);
-$selectedEmployeeId = $isSelfServiceUser
-    ? (int) ($currentEmployeeRecord['id'] ?? 0)
-    : (int) ($oldInput['employee_id'] ?? 0);
-$pendingCount = 0;
+$currentPage   = (int) ($page ?? 1);
+$pageCount     = (int) ($totalPages ?? 1);
+$totalCount    = (int) ($total ?? 0);
+
+$pendingCount  = 0;
 $approvedCount = 0;
 $rejectedCount = 0;
 foreach ($leaveRequests as $entry) {
-    $entryStatus = (string) ($entry['status'] ?? '');
-    if ($entryStatus === 'Pending') {
-        $pendingCount++;
-    } elseif ($entryStatus === 'Approved') {
-        $approvedCount++;
-    } elseif ($entryStatus === 'Rejected') {
-        $rejectedCount++;
-    }
+    $s = (string) ($entry['status'] ?? '');
+    if ($s === 'Pending')  $pendingCount++;
+    elseif ($s === 'Approved') $approvedCount++;
+    elseif ($s === 'Rejected') $rejectedCount++;
 }
-$statusClassMap = [
-    'pending' => 'leave-badge-pending',
-    'approved' => 'leave-badge-approved',
-    'rejected' => 'leave-badge-rejected',
-    'cancelled' => 'leave-badge-cancelled',
-];
+
+$statusBadgeClass = static function (string $s): string {
+    return match(strtolower($s)) {
+        'draft'     => 'badge',
+        'pending'   => 'badge badge-warning',
+        'approved'  => 'badge badge-success',
+        'rejected'  => 'badge badge-danger',
+        'cancelled' => 'badge badge-neutral',
+        default     => 'badge',
+    };
+};
 ?>
 <section class="page">
     <header class="page-banner">
         <div class="page-banner-copy">
-            <p class="page-banner-kicker">Leave Management</p>
-            <h2 class="page-banner-title">Manage requests and approvals in one workflow</h2>
-            <p class="page-banner-sub">Submit leave requests, review status at a glance, and process approvals without context switching.</p>
+            <p class="page-banner-kicker">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                Leave Management
+            </p>
+            <h2 class="page-banner-title">Leave Requests</h2>
+            <p class="page-banner-sub">Review, approve, and reject employee leave requests.</p>
             <div class="page-banner-meta">
-                <span class="badge badge-blue">Request intake</span>
-                <span class="badge badge-teal">Approval queue</span>
-                <span class="badge">Audit tracked</span>
+                <span class="badge badge-blue">Approval Queue</span>
+                <span class="badge">Audit Tracked</span>
             </div>
         </div>
         <div class="page-banner-actions">
-            <a class="btn" href="/leave">Refresh</a>
+            <a class="btn btn-secondary" href="/leave">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                Refresh
+            </a>
+            <?php if ($canRequestLeave): ?>
+                <a class="btn btn-primary" href="/leave/create">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    New Request
+                </a>
+            <?php endif; ?>
         </div>
     </header>
+
     <?php require __DIR__ . '/../partials/alerts.php'; ?>
+
     <section class="stat-grid" aria-label="Leave summary">
-        <article class="stat">
-            <span class="stat-label">Total requests</span>
-            <span class="stat-value"><?= e((string) $totalCount) ?></span>
-            <span class="stat-note">Matching filters</span>
+        <article class="stat card-shine">
+            <div class="stat-icon is-blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div class="stat-data">
+                <span class="stat-label">Total</span>
+                <span class="stat-value"><?= e((string) $totalCount) ?></span>
+                <span class="stat-note">Matching filters</span>
+            </div>
         </article>
-        <article class="stat stat-gold">
-            <span class="stat-label">Pending</span>
-            <span class="stat-value"><?= e((string) $pendingCount) ?></span>
-            <span class="stat-note">Awaiting review</span>
+        <article class="stat stat-gold card-shine">
+            <div class="stat-icon" style="background:var(--amber-50); color:var(--amber-600);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="stat-data">
+                <span class="stat-label">Pending</span>
+                <span class="stat-value"><?= e((string) $pendingCount) ?></span>
+                <span class="stat-note">Awaiting review</span>
+            </div>
         </article>
-        <article class="stat stat-teal">
-            <span class="stat-label">Processed</span>
-            <span class="stat-value"><?= e((string) ($approvedCount + $rejectedCount)) ?></span>
-            <span class="stat-note">Approved or rejected</span>
+        <article class="stat stat-teal card-shine">
+            <div class="stat-icon is-teal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            </div>
+            <div class="stat-data">
+                <span class="stat-label">Processed</span>
+                <span class="stat-value"><?= e((string) ($approvedCount + $rejectedCount)) ?></span>
+                <span class="stat-note">Approved or rejected</span>
+            </div>
         </article>
     </section>
-    <?php if ($canRequestLeave): ?>
-        <section class="card">
-            <div class="card-head">
-                <h3>Submit Leave Request</h3>
-                <p>Create a leave request by selecting employee, type, and date range.</p>
+
+    <section class="card overflow-hidden">
+        <div class="card-header">
+            <div class="card-header-copy">
+                <h3>Request Queue</h3>
+                <p><?= $canApproveLeave ? 'Filter by employee or status, then approve or reject pending items.' : 'Filter by status and review request progress.' ?></p>
             </div>
-            <form class="form-grid" method="post" action="/leave/request" novalidate>
-                <input type="hidden" name="_csrf" value="<?= e((string) ($csrf ?? '')) ?>">
-                <?php if ($isSelfServiceUser): ?>
-                    <?php if ($selectedEmployeeId > 0): ?>
-                        <input type="hidden" name="employee_id" value="<?= $selectedEmployeeId ?>">
-                        <div class="full-width">
-                            <label>Employee</label>
-                            <p class="form-hint" style="margin-top:4px;">
-                                <strong style="color:var(--color-text-primary);"><?= e((string) (($currentEmployeeRecord['employee_code'] ?? '-') . ' — ' . ($currentEmployeeRecord['first_name'] ?? '') . ' ' . ($currentEmployeeRecord['last_name'] ?? ''))) ?></strong>
-                            </p>
-                        </div>
-                    <?php else: ?>
-                        <div class="full-width">
-                            <label>Employee</label>
-                            <p class="form-hint" style="margin-top:4px;">Your account is not linked to an employee profile.</p>
-                        </div>
-                    <?php endif; ?>
-                <?php else: ?>
-                    <label>
-                        <span>Employee</span>
-                        <select name="employee_id" required>
-                            <option value="">Select</option>
-                            <?php foreach ($employeeOptions as $employee): ?>
-                                <option value="<?= (int) $employee['id'] ?>" <?= ((int) ($oldInput['employee_id'] ?? 0) === (int) $employee['id']) ? 'selected' : '' ?>><?= e((string) ($employee['employee_code'] . ' — ' . $employee['first_name'] . ' ' . $employee['last_name'])) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </label>
-                <?php endif; ?>
-                <label>
-                    <span>Leave Type</span>
-                    <select name="leave_type_id" required>
-                        <option value="">Select</option>
-                        <?php foreach ($typeOptions as $leaveType): ?>
-                            <option value="<?= (int) $leaveType['id'] ?>" <?= ((int) ($oldInput['leave_type_id'] ?? 0) === (int) $leaveType['id']) ? 'selected' : '' ?>><?= e((string) $leaveType['type_name']) ?></option>
+        </div>
+
+        <div class="toolbar glass-toolbar">
+            <form method="get" action="/leave" class="filter-bar" role="search" style="display:flex; width:100%; gap:var(--space-3); align-items:flex-end; flex-wrap:wrap;">
+                <label class="filter-field">
+                    <span>Search</span>
+                    <input type="text" name="q" value="<?= e($currentQuery) ?>" placeholder="Employee name or leave type">
+                </label>
+                <label class="filter-field">
+                    <span>Status</span>
+                    <select name="status">
+                        <option value="">All statuses</option>
+                        <?php foreach ($statusList as $item): ?>
+                            <option value="<?= e((string) $item) ?>" <?= ($currentStatus === $item) ? 'selected' : '' ?>><?= e((string) $item) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </label>
-                <label>
-                    <span>Start Date</span>
-                    <input type="date" name="start_date" value="<?= e((string) ($oldInput['start_date'] ?? '')) ?>" required>
-                </label>
-                <label>
-                    <span>End Date</span>
-                    <input type="date" name="end_date" value="<?= e((string) ($oldInput['end_date'] ?? '')) ?>" required>
-                </label>
-                <label>
-                    <span>Total Days</span>
-                    <input type="number" step="0.5" name="total_days" value="<?= e((string) ($oldInput['total_days'] ?? '')) ?>" required>
-                </label>
-                <label class="full-width">
-                    <span>Reason</span>
-                    <textarea name="reason" rows="2"><?= e((string) ($oldInput['reason'] ?? '')) ?></textarea>
-                </label>
-                <?php if (!$isSelfServiceUser || $selectedEmployeeId > 0): ?>
-                    <div class="full-width form-actions">
-                        <p class="form-hint">Overlapping pending/approved requests are blocked automatically.</p>
-                        <button class="btn btn-primary" type="submit">Submit request</button>
-                    </div>
+                <button class="btn btn-primary" type="submit">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    Apply
+                </button>
+                <?php if ($currentQuery !== '' || $currentStatus !== ''): ?>
+                    <a class="btn btn-secondary" href="/leave">Clear</a>
                 <?php endif; ?>
             </form>
-        </section>
-    <?php endif; ?>
-    <section class="card">
-        <div class="card-head">
-            <h3>Request Queue</h3>
-            <p><?= $canApproveLeave ? 'Filter by employee or status, then approve or reject pending items.' : 'Filter by status and review request progress.' ?></p>
         </div>
-        <form class="filter-bar" method="get" action="/leave" role="search">
-            <label class="filter-field">
-                <span>Search</span>
-                <input type="text" name="q" value="<?= e($currentQuery) ?>" placeholder="Employee code, name, or leave type">
-            </label>
-            <label class="filter-field">
-                <span>Status</span>
-                <select name="status">
-                    <option value="">All statuses</option>
-                    <?php foreach ($statusList as $item): ?>
-                        <option value="<?= e((string) $item) ?>" <?= ($currentStatus === $item) ? 'selected' : '' ?>><?= e((string) $item) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
-            <button class="btn btn-primary" type="submit">Apply filters</button>
-        </form>
-        <div class="data-wrap">
-            <table class="data-table">
+
+        <div class="table-wrap no-border no-radius shadow-none">
+            <table class="data-table interactive-rows">
                 <thead>
                     <tr>
-                        <th>Employee</th>
-                        <th>Type</th>
-                        <th>Dates</th>
-                        <th>Days</th>
-                        <th>Status</th>
-                        <th>Reason</th>
-                        <th style="text-align:right;">Actions</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Dates</th>
+                        <th scope="col">Days</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" style="text-align:right;">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if ($leaveRequests === []): ?>
                         <tr>
-                            <td colspan="7"><p class="empty-state">No leave requests found for the current filters.</p></td>
+                            <td colspan="6">
+                                <div class="table-empty">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity:.25; margin-bottom:12px;"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                                    <p>No leave requests found<?= $currentStatus !== '' ? ' with status "' . e($currentStatus) . '"' : '' ?>.</p>
+                                </div>
+                            </td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($leaveRequests as $request): ?>
-                            <?php
-                            $statusValue = (string) ($request['status'] ?? 'Unknown');
-                            $statusKey = strtolower(str_replace([' ', '-'], '_', $statusValue));
-                            $statusClass = $statusClassMap[$statusKey] ?? 'leave-badge-default';
-                            ?>
+                            <?php $statusValue = (string) ($request['status'] ?? 'Unknown'); ?>
                             <tr>
                                 <td>
                                     <div class="person">
@@ -193,29 +161,31 @@ $statusClassMap = [
                                     </div>
                                 </td>
                                 <td><?= e((string) ($request['type_name'] ?? '-')) ?></td>
-                                <td style="font-family:var(--font-mono); font-size:0.82rem;"><?= e((string) ($request['start_date'] ?? '-')) ?> &rarr; <?= e((string) ($request['end_date'] ?? '-')) ?></td>
+                                <td style="font-family:monospace; font-size:12px; white-space:nowrap;">
+                                    <?= e((string) ($request['start_date'] ?? '-')) ?> &rarr; <?= e((string) ($request['end_date'] ?? '-')) ?>
+                                </td>
                                 <td><?= e((string) ($request['total_days'] ?? '-')) ?></td>
-                                <td><span class="leave-badge <?= e($statusClass) ?>"><?= e($statusValue) ?></span></td>
-                                <td><?= e((string) ($request['reason'] ?? '-')) ?></td>
+                                <td><span class="<?= e($statusBadgeClass($statusValue)) ?>"><?= e($statusValue) ?></span></td>
                                 <td style="text-align:right;">
-                                    <div class="leave-actions" style="justify-content:flex-end;">
-                                        <?php if ($statusValue === 'Pending'): ?>
-                                            <?php if ($canApproveLeave): ?>
-                                                <form method="post" action="/leave/<?= (int) ($request['id'] ?? 0) ?>/approve">
-                                                    <input type="hidden" name="_csrf" value="<?= e((string) ($csrf ?? '')) ?>">
-                                                    <input type="hidden" name="review_remarks" value="Approved">
-                                                    <button class="leave-action-btn approve" type="submit">Approve</button>
-                                                </form>
-                                                <form method="post" action="/leave/<?= (int) ($request['id'] ?? 0) ?>/reject">
-                                                    <input type="hidden" name="_csrf" value="<?= e((string) ($csrf ?? '')) ?>">
-                                                    <input type="hidden" name="review_remarks" value="Rejected">
-                                                    <button class="leave-action-btn reject" type="submit">Reject</button>
-                                                </form>
-                                            <?php else: ?>
-                                                <span style="color:var(--color-text-tertiary);">—</span>
-                                            <?php endif; ?>
-                                        <?php else: ?>
-                                            <span style="color:var(--color-text-tertiary);">—</span>
+                                    <div class="row-actions" style="justify-content:flex-end;">
+                                        <a href="/leave/<?= (int) ($request['id'] ?? 0) ?>" class="btn-icon" title="View">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        </a>
+                                        <?php if ($statusValue === 'Pending' && $canApproveLeave): ?>
+                                            <form method="post" action="/leave/<?= (int) ($request['id'] ?? 0) ?>/approve" style="display:inline;">
+                                                <input type="hidden" name="_csrf" value="<?= e(\App\Core\CSRF::token()) ?>">
+                                                <input type="hidden" name="review_remarks" value="Approved">
+                                                <button class="btn-icon text-success" title="Approve" type="submit">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                                                </button>
+                                            </form>
+                                            <form method="post" action="/leave/<?= (int) ($request['id'] ?? 0) ?>/reject" style="display:inline;">
+                                                <input type="hidden" name="_csrf" value="<?= e(\App\Core\CSRF::token()) ?>">
+                                                <input type="hidden" name="review_remarks" value="Rejected">
+                                                <button class="btn-icon text-red" title="Reject" type="submit">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                                                </button>
+                                            </form>
                                         <?php endif; ?>
                                     </div>
                                 </td>
@@ -225,13 +195,16 @@ $statusClassMap = [
                 </tbody>
             </table>
         </div>
+
         <?php if ($pageCount > 1): ?>
-            <?php $base = '/leave?q=' . urlencode($currentQuery) . '&status=' . urlencode($currentStatus) . '&page='; ?>
-            <nav class="pagination" aria-label="Leave pagination" style="margin-top:12px;">
-                <?php for ($i = 1; $i <= $pageCount; $i++): ?>
-                    <a class="page-link <?= $currentPage === $i ? 'is-active' : '' ?>" href="<?= e($base . $i) ?>"><?= $i ?></a>
-                <?php endfor; ?>
-            </nav>
+            <div class="card-footer">
+                <?php $base = '/leave?q=' . urlencode($currentQuery) . '&status=' . urlencode($currentStatus) . '&page='; ?>
+                <nav class="pagination" aria-label="Leave pagination">
+                    <?php for ($i = 1; $i <= $pageCount; $i++): ?>
+                        <a class="page-link <?= $currentPage === $i ? 'is-active' : '' ?>" href="<?= e($base . $i) ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+                </nav>
+            </div>
         <?php endif; ?>
     </section>
 </section>

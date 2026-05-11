@@ -104,8 +104,27 @@ final class LeaveRequest extends Model
         return $this->fetchOne('SELECT * FROM hris_leave_requests WHERE id = :id LIMIT 1', ['id' => $id]);
     }
 
+    public function findWithJoins(int $id): ?array
+    {
+        return $this->fetchOne(
+            'SELECT lr.*,
+                    e.employee_code, e.first_name, e.last_name,
+                    lt.type_name,
+                    (SELECT COUNT(*) FROM hris_leave_attachments la WHERE la.leave_request_id = lr.id) AS attachment_count
+             FROM hris_leave_requests lr
+             INNER JOIN hris_employees e ON e.id = lr.employee_id
+             INNER JOIN hris_leave_types lt ON lt.id = lr.leave_type_id
+             WHERE lr.id = :id LIMIT 1',
+            ['id' => $id]
+        );
+    }
+
     public function createRequest(array $data): int
     {
+        $status = in_array($data['status'] ?? '', ['Draft', 'Pending'], true)
+            ? $data['status']
+            : 'Draft';
+
         $this->execute(
             'INSERT INTO hris_leave_requests (
                 employee_id, leave_type_id, start_date, end_date, total_days, reason, status
@@ -113,17 +132,80 @@ final class LeaveRequest extends Model
                 :employee_id, :leave_type_id, :start_date, :end_date, :total_days, :reason, :status
              )',
             [
-                'employee_id' => (int) $data['employee_id'],
+                'employee_id'   => (int) $data['employee_id'],
                 'leave_type_id' => (int) $data['leave_type_id'],
-                'start_date' => $data['start_date'],
-                'end_date' => $data['end_date'],
-                'total_days' => (float) $data['total_days'],
-                'reason' => $data['reason'] ?: null,
-                'status' => 'Pending',
+                'start_date'    => $data['start_date'],
+                'end_date'      => $data['end_date'],
+                'total_days'    => (float) $data['total_days'],
+                'reason'        => $data['reason'] ?: null,
+                'status'        => $status,
             ]
         );
 
         return (int) $this->db->lastInsertId();
+    }
+
+    public function updateDraft(int $id, array $data, int $employeeId): bool
+    {
+        return $this->execute(
+            'UPDATE hris_leave_requests
+             SET leave_type_id = :leave_type_id, start_date = :start_date, end_date = :end_date,
+                 total_days = :total_days, reason = :reason
+             WHERE id = :id AND employee_id = :employee_id AND status = \'Draft\'',
+            [
+                'id'            => $id,
+                'employee_id'   => $employeeId,
+                'leave_type_id' => (int) $data['leave_type_id'],
+                'start_date'    => $data['start_date'],
+                'end_date'      => $data['end_date'],
+                'total_days'    => (float) $data['total_days'],
+                'reason'        => $data['reason'] ?: null,
+            ]
+        );
+    }
+
+    public function updateStatusFromDraft(int $id, int $employeeId): bool
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE hris_leave_requests
+             SET status = \'Pending\', submitted_at = NOW()
+             WHERE id = :id AND employee_id = :employee_id AND status = \'Draft\''
+        );
+        $stmt->execute(['id' => $id, 'employee_id' => $employeeId]);
+        return $stmt->rowCount() > 0;
+    }
+
+    public function cancelByEmployee(int $id, int $employeeId): bool
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE hris_leave_requests
+             SET status = \'Cancelled\'
+             WHERE id = :id AND employee_id = :employee_id AND status = \'Pending\''
+        );
+        $stmt->execute(['id' => $id, 'employee_id' => $employeeId]);
+        return $stmt->rowCount() > 0;
+    }
+
+    public static function workingDaysBetween(string $from, string $to, array $holidayDates): int
+    {
+        try {
+            $start = new \DateTime($from);
+            $end   = new \DateTime($to);
+        } catch (\Exception) {
+            return 0;
+        }
+
+        $holidaySet = array_flip($holidayDates);
+        $count = 0;
+
+        for ($d = clone $start; $d <= $end; $d->modify('+1 day')) {
+            $dow = (int) $d->format('N'); // 1 = Mon, 7 = Sun
+            if ($dow < 6 && !isset($holidaySet[$d->format('Y-m-d')])) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 
     public function hasOverlap(int $employeeId, string $startDate, string $endDate): bool
@@ -169,6 +251,6 @@ final class LeaveRequest extends Model
 
     public function statuses(): array
     {
-        return ['Pending', 'Approved', 'Rejected', 'Cancelled'];
+        return ['Draft', 'Pending', 'Approved', 'Rejected', 'Cancelled'];
     }
 }

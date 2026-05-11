@@ -21,7 +21,16 @@ return [
 
         '/attendance' => ['controller' => 'AttendanceController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:attendance.view']],
 
-        '/leave' => ['controller' => 'LeaveController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:leave.view']],
+        '/my-leave'                              => ['controller' => 'LeaveController', 'method' => 'myLeave',            'middleware' => ['auth', 'permission:leave.my_leave']],
+        '/leave'                                 => ['controller' => 'LeaveController', 'method' => 'index',             'middleware' => ['auth', 'subscription', 'permission:leave.view']],
+        '/leave/create'                          => ['controller' => 'LeaveController', 'method' => 'create',            'middleware' => ['auth', 'permission:leave.request']],
+        '/leave/{id}'                            => ['controller' => 'LeaveController', 'method' => 'show',              'middleware' => ['auth', 'permission:leave.view']],
+        '/leave/{id}/edit'                       => ['controller' => 'LeaveController', 'method' => 'edit',              'middleware' => ['auth', 'permission:leave.request']],
+        '/leave/{id}/attachment/{attId}/download'=> ['controller' => 'LeaveController', 'method' => 'downloadAttachment','middleware' => ['auth', 'permission:leave.view']],
+
+        '/holidays'                              => ['controller' => 'HolidayController', 'method' => 'index',  'middleware' => ['auth', 'permission:holidays.manage']],
+        '/holidays/create'                       => ['controller' => 'HolidayController', 'method' => 'create', 'middleware' => ['auth', 'permission:holidays.manage']],
+        '/holidays/{id}/edit'                    => ['controller' => 'HolidayController', 'method' => 'edit',   'middleware' => ['auth', 'permission:holidays.manage']],
 
         '/payroll' => ['controller' => 'PayrollController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:payroll.view']],
 
@@ -66,9 +75,16 @@ return [
 
         '/attendance' => ['controller' => 'AttendanceController', 'method' => 'store', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:attendance.manage']],
 
-        '/leave/request' => ['controller' => 'LeaveController', 'method' => 'store', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.request']],
-        '/leave/{id}/approve' => ['controller' => 'LeaveController', 'method' => 'approve', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
-        '/leave/{id}/reject' => ['controller' => 'LeaveController', 'method' => 'reject', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
+        '/leave'               => ['controller' => 'LeaveController', 'method' => 'store',   'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/update'   => ['controller' => 'LeaveController', 'method' => 'update',  'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/submit'   => ['controller' => 'LeaveController', 'method' => 'submit',  'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/cancel'   => ['controller' => 'LeaveController', 'method' => 'cancel',  'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/approve'  => ['controller' => 'LeaveController', 'method' => 'approve', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
+        '/leave/{id}/reject'   => ['controller' => 'LeaveController', 'method' => 'reject',  'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
+
+        '/holidays'            => ['controller' => 'HolidayController', 'method' => 'store',   'middleware' => ['auth', 'csrf', 'permission:holidays.manage']],
+        '/holidays/{id}/update'=> ['controller' => 'HolidayController', 'method' => 'update',  'middleware' => ['auth', 'csrf', 'permission:holidays.manage']],
+        '/holidays/{id}/delete'=> ['controller' => 'HolidayController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:holidays.manage']],
 
         '/payroll/grades' => ['controller' => 'PayrollController', 'method' => 'storeGrade', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:payroll.view']],
         '/payroll/salaries' => ['controller' => 'PayrollController', 'method' => 'storeSalary', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:payroll.view']],
