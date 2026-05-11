@@ -339,11 +339,59 @@
     }
 }
 
+/* -- Sidebar overlay on mobile --------------------------- */
+
+@media (max-width: 960px) {
+    /* Dim overlay behind open mobile sidebar */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(11, 31, 58, 0.45);
+        z-index: 59;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-default);
+    }
+
+    body.sidebar-open::before {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Tighter groups on small sidebar */
+    .nav-group-toggle {
+        padding: 6px 14px 6px 12px;
+    }
+
+    .nav-group-items {
+        padding: 0 8px 4px;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Full-width sidebar drawer on mobile */
+    .sidebar {
+        width: 80vw;
+        max-width: 290px;
+    }
+
+    .nav-group-toggle {
+        font-size: 0.58rem;
+    }
+}
+
 /* -- Reduced motion -------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
     * {
         animation: none !important;
         transition: none !important;
+    }
+
+    .nav-group-items {
+        transition: none !important;
+        max-height: none !important;
+        opacity: 1 !important;
     }
 }

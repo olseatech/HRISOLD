@@ -2,10 +2,15 @@
 $employees = is_array($employees ?? null) ? $employees : [];
 $empId     = (int) ($empId ?? 0);
 
+$_svgPds   = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gov-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg>';
+$_svgSvc   = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gov-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>';
+$_svgCert  = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gov-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg>';
+$_svgClr   = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gov-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L3 6v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V6l-9-4z"/><polyline points="9 12 11 14 15 10"/></svg>';
+
 $reportTypes = [
-    ['key' => 'pds',            'label' => 'PDS / CS Form 212',     'icon' => '📄', 'desc' => 'Personal Data Sheet — all sections',        'route' => '/reports/pds/'],
-    ['key' => 'service-record', 'label' => 'Service Record',         'icon' => '📋', 'desc' => 'Full employment history',                    'route' => '/reports/service-record/'],
-    ['key' => 'certification',  'label' => 'Employee Certification', 'icon' => '📜', 'desc' => 'Certifies current position and employment',  'route' => '/reports/certification/'],
+    ['key' => 'pds',            'label' => 'PDS / CS Form 212',     'icon' => $_svgPds,  'desc' => 'Personal Data Sheet — all sections',       'route' => '/reports/pds/'],
+    ['key' => 'service-record', 'label' => 'Service Record',         'icon' => $_svgSvc,  'desc' => 'Full employment history',                   'route' => '/reports/service-record/'],
+    ['key' => 'certification',  'label' => 'Employee Certification', 'icon' => $_svgCert, 'desc' => 'Certifies current position and employment', 'route' => '/reports/certification/'],
 ];
 ?>
 <section class="page">
@@ -58,7 +63,7 @@ $reportTypes = [
     <section style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:var(--space-4);">
         <?php foreach ($reportTypes as $r): ?>
         <article class="card card-shine" style="padding:var(--space-5);">
-            <div style="font-size:28px; margin-bottom:var(--space-3);"><?= $r['icon'] ?></div>
+            <div style="margin-bottom:var(--space-3); line-height:1;"><?= $r['icon'] ?></div>
             <h3 style="font-size:15px; font-weight:700; margin-bottom:4px;"><?= e($r['label']) ?></h3>
             <p style="font-size:12px; color:var(--text-muted); margin-bottom:var(--space-4);"><?= e($r['desc']) ?></p>
             <a href="<?= e($r['route'] . $empId) ?>" target="_blank" class="btn btn-primary" style="width:100%; text-align:center; justify-content:center;">
@@ -70,7 +75,7 @@ $reportTypes = [
 
         <!-- Clearance report — requires clearance ID -->
         <article class="card card-shine" style="padding:var(--space-5);">
-            <div style="font-size:28px; margin-bottom:var(--space-3);">🧾</div>
+            <div style="margin-bottom:var(--space-3); line-height:1;"><?= $_svgClr ?></div>
             <h3 style="font-size:15px; font-weight:700; margin-bottom:4px;">Clearance Form</h3>
             <p style="font-size:12px; color:var(--text-muted); margin-bottom:var(--space-4);">Print a specific clearance request. Requires Clearance ID.</p>
             <form method="get" action="" id="clearanceForm" onsubmit="openClearancePrint(event)" style="display:flex; gap:8px;">
