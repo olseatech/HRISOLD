@@ -31,6 +31,11 @@ return [
         '/pds/create' => ['controller' => 'PdsController', 'method' => 'create', 'middleware' => ['auth', 'permission:pds.create']],
         '/pds/{id}' => ['controller' => 'PdsController', 'method' => 'show', 'middleware' => ['auth', 'permission:pds.view']],
         '/pds/{id}/edit' => ['controller' => 'PdsController', 'method' => 'edit', 'middleware' => ['auth', 'permission:pds.update']],
+
+        '/service-records' => ['controller' => 'ServiceRecordController', 'method' => 'index', 'middleware' => ['auth', 'permission:service_records.view']],
+        '/service-records/create' => ['controller' => 'ServiceRecordController', 'method' => 'create', 'middleware' => ['auth', 'permission:service_records.create']],
+        '/service-records/{id}' => ['controller' => 'ServiceRecordController', 'method' => 'show', 'middleware' => ['auth', 'permission:service_records.view']],
+        '/service-records/{id}/edit' => ['controller' => 'ServiceRecordController', 'method' => 'edit', 'middleware' => ['auth', 'permission:service_records.update']],
     ],
     'POST' => [
         '/subscribe' => ['controller' => 'LandingController', 'method' => 'subscribe', 'middleware' => ['csrf']],
@@ -60,5 +65,9 @@ return [
         '/pds' => ['controller' => 'PdsController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:pds.create']],
         '/pds/{id}/update' => ['controller' => 'PdsController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:pds.update']],
         '/pds/{id}/delete' => ['controller' => 'PdsController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:pds.delete']],
+
+        '/service-records' => ['controller' => 'ServiceRecordController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:service_records.create']],
+        '/service-records/{id}/update' => ['controller' => 'ServiceRecordController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:service_records.update']],
+        '/service-records/{id}/delete' => ['controller' => 'ServiceRecordController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:service_records.delete']],
     ],
 ];
