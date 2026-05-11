@@ -21,7 +21,16 @@ return [
 
         '/attendance' => ['controller' => 'AttendanceController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:attendance.view']],
 
-        '/leave' => ['controller' => 'LeaveController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:leave.view']],
+        '/my-leave'                              => ['controller' => 'LeaveController', 'method' => 'myLeave',            'middleware' => ['auth', 'permission:leave.my_leave']],
+        '/leave'                                 => ['controller' => 'LeaveController', 'method' => 'index',             'middleware' => ['auth', 'subscription', 'permission:leave.view']],
+        '/leave/create'                          => ['controller' => 'LeaveController', 'method' => 'create',            'middleware' => ['auth', 'permission:leave.request']],
+        '/leave/{id}'                            => ['controller' => 'LeaveController', 'method' => 'show',              'middleware' => ['auth', 'permission:leave.view']],
+        '/leave/{id}/edit'                       => ['controller' => 'LeaveController', 'method' => 'edit',              'middleware' => ['auth', 'permission:leave.request']],
+        '/leave/{id}/attachment/{attId}/download'=> ['controller' => 'LeaveController', 'method' => 'downloadAttachment','middleware' => ['auth', 'permission:leave.view']],
+
+        '/holidays'                              => ['controller' => 'HolidayController', 'method' => 'index',  'middleware' => ['auth', 'permission:holidays.manage']],
+        '/holidays/create'                       => ['controller' => 'HolidayController', 'method' => 'create', 'middleware' => ['auth', 'permission:holidays.manage']],
+        '/holidays/{id}/edit'                    => ['controller' => 'HolidayController', 'method' => 'edit',   'middleware' => ['auth', 'permission:holidays.manage']],
 
         '/payroll' => ['controller' => 'PayrollController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:payroll.view']],
 
@@ -31,6 +40,26 @@ return [
         '/pds/create' => ['controller' => 'PdsController', 'method' => 'create', 'middleware' => ['auth', 'permission:pds.create']],
         '/pds/{id}' => ['controller' => 'PdsController', 'method' => 'show', 'middleware' => ['auth', 'permission:pds.view']],
         '/pds/{id}/edit' => ['controller' => 'PdsController', 'method' => 'edit', 'middleware' => ['auth', 'permission:pds.update']],
+
+        '/service-records' => ['controller' => 'ServiceRecordController', 'method' => 'index', 'middleware' => ['auth', 'permission:service_records.view']],
+        '/service-records/create' => ['controller' => 'ServiceRecordController', 'method' => 'create', 'middleware' => ['auth', 'permission:service_records.create']],
+        '/service-records/{id}' => ['controller' => 'ServiceRecordController', 'method' => 'show', 'middleware' => ['auth', 'permission:service_records.view']],
+        '/service-records/{id}/edit' => ['controller' => 'ServiceRecordController', 'method' => 'edit', 'middleware' => ['auth', 'permission:service_records.update']],
+
+        '/clearances' => ['controller' => 'ClearanceController', 'method' => 'index', 'middleware' => ['auth', 'permission:clearances.view']],
+        '/clearances/create' => ['controller' => 'ClearanceController', 'method' => 'create', 'middleware' => ['auth', 'permission:clearances.create']],
+        '/clearances/{id}' => ['controller' => 'ClearanceController', 'method' => 'show', 'middleware' => ['auth', 'permission:clearances.view']],
+        '/clearances/{id}/edit' => ['controller' => 'ClearanceController', 'method' => 'edit', 'middleware' => ['auth', 'permission:clearances.update']],
+
+        '/appointments' => ['controller' => 'AppointmentController', 'method' => 'index', 'middleware' => ['auth', 'permission:appointments.view']],
+        '/appointments/create' => ['controller' => 'AppointmentController', 'method' => 'create', 'middleware' => ['auth', 'permission:appointments.create']],
+        '/appointments/{id}' => ['controller' => 'AppointmentController', 'method' => 'show', 'middleware' => ['auth', 'permission:appointments.view']],
+        '/appointments/{id}/edit' => ['controller' => 'AppointmentController', 'method' => 'edit', 'middleware' => ['auth', 'permission:appointments.update']],
+
+        '/documents' => ['controller' => 'Document201Controller', 'method' => 'index', 'middleware' => ['auth', 'permission:documents.view']],
+        '/documents/create' => ['controller' => 'Document201Controller', 'method' => 'create', 'middleware' => ['auth', 'permission:documents.manage']],
+        '/documents/{id}' => ['controller' => 'Document201Controller', 'method' => 'show', 'middleware' => ['auth', 'permission:documents.view']],
+        '/documents/{id}/download' => ['controller' => 'Document201Controller', 'method' => 'download', 'middleware' => ['auth', 'permission:documents.view']],
     ],
     'POST' => [
         '/subscribe' => ['controller' => 'LandingController', 'method' => 'subscribe', 'middleware' => ['csrf']],
@@ -46,9 +75,16 @@ return [
 
         '/attendance' => ['controller' => 'AttendanceController', 'method' => 'store', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:attendance.manage']],
 
-        '/leave/request' => ['controller' => 'LeaveController', 'method' => 'store', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.request']],
-        '/leave/{id}/approve' => ['controller' => 'LeaveController', 'method' => 'approve', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
-        '/leave/{id}/reject' => ['controller' => 'LeaveController', 'method' => 'reject', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
+        '/leave'               => ['controller' => 'LeaveController', 'method' => 'store',   'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/update'   => ['controller' => 'LeaveController', 'method' => 'update',  'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/submit'   => ['controller' => 'LeaveController', 'method' => 'submit',  'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/cancel'   => ['controller' => 'LeaveController', 'method' => 'cancel',  'middleware' => ['auth', 'csrf', 'permission:leave.request']],
+        '/leave/{id}/approve'  => ['controller' => 'LeaveController', 'method' => 'approve', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
+        '/leave/{id}/reject'   => ['controller' => 'LeaveController', 'method' => 'reject',  'middleware' => ['auth', 'subscription', 'csrf', 'permission:leave.approve']],
+
+        '/holidays'            => ['controller' => 'HolidayController', 'method' => 'store',   'middleware' => ['auth', 'csrf', 'permission:holidays.manage']],
+        '/holidays/{id}/update'=> ['controller' => 'HolidayController', 'method' => 'update',  'middleware' => ['auth', 'csrf', 'permission:holidays.manage']],
+        '/holidays/{id}/delete'=> ['controller' => 'HolidayController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:holidays.manage']],
 
         '/payroll/grades' => ['controller' => 'PayrollController', 'method' => 'storeGrade', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:payroll.view']],
         '/payroll/salaries' => ['controller' => 'PayrollController', 'method' => 'storeSalary', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:payroll.view']],
@@ -60,5 +96,23 @@ return [
         '/pds' => ['controller' => 'PdsController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:pds.create']],
         '/pds/{id}/update' => ['controller' => 'PdsController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:pds.update']],
         '/pds/{id}/delete' => ['controller' => 'PdsController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:pds.delete']],
+
+        '/service-records' => ['controller' => 'ServiceRecordController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:service_records.create']],
+        '/service-records/{id}/update' => ['controller' => 'ServiceRecordController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:service_records.update']],
+        '/service-records/{id}/delete' => ['controller' => 'ServiceRecordController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:service_records.delete']],
+
+        '/clearances' => ['controller' => 'ClearanceController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:clearances.create']],
+        '/clearances/{id}/update' => ['controller' => 'ClearanceController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:clearances.update']],
+        '/clearances/{id}/delete' => ['controller' => 'ClearanceController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:clearances.delete']],
+        '/clearances/{id}/approve' => ['controller' => 'ClearanceController', 'method' => 'approve', 'middleware' => ['auth', 'csrf', 'permission:clearances.approve']],
+        '/clearances/{id}/reject' => ['controller' => 'ClearanceController', 'method' => 'reject', 'middleware' => ['auth', 'csrf', 'permission:clearances.approve']],
+        '/clearances/{id}/item-update' => ['controller' => 'ClearanceController', 'method' => 'updateItem', 'middleware' => ['auth', 'csrf', 'permission:clearances.update']],
+
+        '/appointments' => ['controller' => 'AppointmentController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:appointments.create']],
+        '/appointments/{id}/update' => ['controller' => 'AppointmentController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:appointments.update']],
+        '/appointments/{id}/delete' => ['controller' => 'AppointmentController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:appointments.delete']],
+
+        '/documents' => ['controller' => 'Document201Controller', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:documents.manage']],
+        '/documents/{id}/delete' => ['controller' => 'Document201Controller', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:documents.delete']],
     ],
 ];

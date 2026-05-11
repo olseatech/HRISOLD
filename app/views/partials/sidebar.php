@@ -14,6 +14,12 @@ $iconPayroll    = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" st
 $iconSettings   = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="2.4"/><path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M4.7 15.3l1.4-1.4M13.9 6.1l1.4-1.4"/></svg>';
 $iconBilling    = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="16" height="12" rx="1"/><path d="M2 8h16M6 2v3M14 2v3"/></svg>';
 $iconPds        = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6z"/><polyline points="12 2 12 6 16 6"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="12" x2="13" y2="12"/><line x1="7" y1="15" x2="10" y2="15"/></svg>';
+$iconServiceRec = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="14" height="16" rx="1"/><path d="M7 6h6M7 9h6M7 12h4"/><circle cx="14.5" cy="14.5" r="3"/><path d="m13.5 14.5 1 1 1.5-1.5"/></svg>';
+$iconClearance  = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L3 5v5c0 4.4 3 8.1 7 9 4-0.9 7-4.6 7-9V5l-7-3z"/><path d="M7 10l2 2 4-4"/></svg>';
+$iconAppointment = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="13" rx="1"/><path d="M3 8h14M7 2v3M13 2v3M7 12h2M7 15h2M11 12h2"/></svg>';
+$iconDocuments   = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6z"/><polyline points="11 2 11 6 15 6"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="12" x2="13" y2="12"/><line x1="7" y1="15" x2="10" y2="15"/></svg>';
+$iconMyLeave     = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="6.5" r="3"/><path d="M3.5 17c0-3.3 2.9-6 6.5-6s6.5 2.7 6.5 6"/><path d="M13 12.5l1 1 2-2"/></svg>';
+$iconHolidays    = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="14" height="13" rx="1"/><path d="M3 8h14M7 2.5v3M13 2.5v3"/><circle cx="10" cy="13" r="1.5"/></svg>';
 $iconLogout     = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.5H4.5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1H8"/><path d="M12 6.5 15.5 10 12 13.5M7 10h8.5"/></svg>';
 $iconLock       = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="12" height="9" rx="1"/><path d="M7 8V5a3 3 0 0 1 6 0v3"/></svg>';
 
@@ -23,8 +29,14 @@ $navItems = [
     ['path' => '/attendance', 'label' => 'Attendance', 'permission' => 'attendance.view', 'icon' => $iconAttendance],
     ['path' => '/leave',      'label' => 'Leave',      'permission' => 'leave.view',      'icon' => $iconLeave],
     ['path' => '/payroll',    'label' => 'Payroll',    'permission' => 'payroll.view',    'icon' => $iconPayroll],
-    ['path' => '/pds',        'label' => 'PDS',        'permission' => 'pds.view',        'icon' => $iconPds],
-    ['path' => '/settings',   'label' => 'Settings',   'permission' => 'settings.manage', 'icon' => $iconSettings],
+    ['path' => '/my-leave',   'label' => 'My Leave',   'permission' => 'leave.my_leave',  'icon' => $iconMyLeave],
+    ['path' => '/holidays',   'label' => 'Holidays',   'permission' => 'holidays.manage', 'icon' => $iconHolidays],
+    ['path' => '/pds',            'label' => 'PDS',            'permission' => 'pds.view',             'icon' => $iconPds],
+    ['path' => '/service-records','label' => 'Service Record', 'permission' => 'service_records.view', 'icon' => $iconServiceRec],
+    ['path' => '/clearances',     'label' => 'Clearance',      'permission' => 'clearances.view',       'icon' => $iconClearance],
+    ['path' => '/appointments',   'label' => 'Appointments',   'permission' => 'appointments.view',     'icon' => $iconAppointment],
+    ['path' => '/documents',      'label' => '201 Documents',  'permission' => 'documents.view',        'icon' => $iconDocuments],
+    ['path' => '/settings',       'label' => 'Settings',       'permission' => 'settings.manage',      'icon' => $iconSettings],
     ['path' => '/billing',    'label' => 'Billing',    'permission' => 'billing.view',    'icon' => $iconBilling],
 ];
 ?>
