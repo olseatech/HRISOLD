@@ -26,6 +26,11 @@ return [
         '/payroll' => ['controller' => 'PayrollController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:payroll.view']],
 
         '/settings' => ['controller' => 'SettingsController', 'method' => 'index', 'middleware' => ['auth', 'subscription', 'permission:settings.manage']],
+
+        '/pds' => ['controller' => 'PdsController', 'method' => 'index', 'middleware' => ['auth', 'permission:pds.view']],
+        '/pds/create' => ['controller' => 'PdsController', 'method' => 'create', 'middleware' => ['auth', 'permission:pds.create']],
+        '/pds/{id}' => ['controller' => 'PdsController', 'method' => 'show', 'middleware' => ['auth', 'permission:pds.view']],
+        '/pds/{id}/edit' => ['controller' => 'PdsController', 'method' => 'edit', 'middleware' => ['auth', 'permission:pds.update']],
     ],
     'POST' => [
         '/subscribe' => ['controller' => 'LandingController', 'method' => 'subscribe', 'middleware' => ['csrf']],
@@ -51,5 +56,9 @@ return [
         '/settings/company' => ['controller' => 'SettingsController', 'method' => 'saveCompany', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
         '/settings/system' => ['controller' => 'SettingsController', 'method' => 'saveSystem', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
         '/settings/roles/{id}/toggle' => ['controller' => 'SettingsController', 'method' => 'toggleRole', 'middleware' => ['auth', 'subscription', 'csrf', 'permission:settings.manage']],
+
+        '/pds' => ['controller' => 'PdsController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:pds.create']],
+        '/pds/{id}/update' => ['controller' => 'PdsController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:pds.update']],
+        '/pds/{id}/delete' => ['controller' => 'PdsController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:pds.delete']],
     ],
 ];
