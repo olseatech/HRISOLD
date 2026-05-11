@@ -36,6 +36,11 @@ return [
         '/service-records/create' => ['controller' => 'ServiceRecordController', 'method' => 'create', 'middleware' => ['auth', 'permission:service_records.create']],
         '/service-records/{id}' => ['controller' => 'ServiceRecordController', 'method' => 'show', 'middleware' => ['auth', 'permission:service_records.view']],
         '/service-records/{id}/edit' => ['controller' => 'ServiceRecordController', 'method' => 'edit', 'middleware' => ['auth', 'permission:service_records.update']],
+
+        '/clearances' => ['controller' => 'ClearanceController', 'method' => 'index', 'middleware' => ['auth', 'permission:clearances.view']],
+        '/clearances/create' => ['controller' => 'ClearanceController', 'method' => 'create', 'middleware' => ['auth', 'permission:clearances.create']],
+        '/clearances/{id}' => ['controller' => 'ClearanceController', 'method' => 'show', 'middleware' => ['auth', 'permission:clearances.view']],
+        '/clearances/{id}/edit' => ['controller' => 'ClearanceController', 'method' => 'edit', 'middleware' => ['auth', 'permission:clearances.update']],
     ],
     'POST' => [
         '/subscribe' => ['controller' => 'LandingController', 'method' => 'subscribe', 'middleware' => ['csrf']],
@@ -69,5 +74,12 @@ return [
         '/service-records' => ['controller' => 'ServiceRecordController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:service_records.create']],
         '/service-records/{id}/update' => ['controller' => 'ServiceRecordController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:service_records.update']],
         '/service-records/{id}/delete' => ['controller' => 'ServiceRecordController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:service_records.delete']],
+
+        '/clearances' => ['controller' => 'ClearanceController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:clearances.create']],
+        '/clearances/{id}/update' => ['controller' => 'ClearanceController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:clearances.update']],
+        '/clearances/{id}/delete' => ['controller' => 'ClearanceController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:clearances.delete']],
+        '/clearances/{id}/approve' => ['controller' => 'ClearanceController', 'method' => 'approve', 'middleware' => ['auth', 'csrf', 'permission:clearances.approve']],
+        '/clearances/{id}/reject' => ['controller' => 'ClearanceController', 'method' => 'reject', 'middleware' => ['auth', 'csrf', 'permission:clearances.approve']],
+        '/clearances/{id}/item-update' => ['controller' => 'ClearanceController', 'method' => 'updateItem', 'middleware' => ['auth', 'csrf', 'permission:clearances.update']],
     ],
 ];
