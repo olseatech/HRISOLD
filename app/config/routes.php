@@ -41,6 +41,11 @@ return [
         '/clearances/create' => ['controller' => 'ClearanceController', 'method' => 'create', 'middleware' => ['auth', 'permission:clearances.create']],
         '/clearances/{id}' => ['controller' => 'ClearanceController', 'method' => 'show', 'middleware' => ['auth', 'permission:clearances.view']],
         '/clearances/{id}/edit' => ['controller' => 'ClearanceController', 'method' => 'edit', 'middleware' => ['auth', 'permission:clearances.update']],
+
+        '/appointments' => ['controller' => 'AppointmentController', 'method' => 'index', 'middleware' => ['auth', 'permission:appointments.view']],
+        '/appointments/create' => ['controller' => 'AppointmentController', 'method' => 'create', 'middleware' => ['auth', 'permission:appointments.create']],
+        '/appointments/{id}' => ['controller' => 'AppointmentController', 'method' => 'show', 'middleware' => ['auth', 'permission:appointments.view']],
+        '/appointments/{id}/edit' => ['controller' => 'AppointmentController', 'method' => 'edit', 'middleware' => ['auth', 'permission:appointments.update']],
     ],
     'POST' => [
         '/subscribe' => ['controller' => 'LandingController', 'method' => 'subscribe', 'middleware' => ['csrf']],
@@ -81,5 +86,9 @@ return [
         '/clearances/{id}/approve' => ['controller' => 'ClearanceController', 'method' => 'approve', 'middleware' => ['auth', 'csrf', 'permission:clearances.approve']],
         '/clearances/{id}/reject' => ['controller' => 'ClearanceController', 'method' => 'reject', 'middleware' => ['auth', 'csrf', 'permission:clearances.approve']],
         '/clearances/{id}/item-update' => ['controller' => 'ClearanceController', 'method' => 'updateItem', 'middleware' => ['auth', 'csrf', 'permission:clearances.update']],
+
+        '/appointments' => ['controller' => 'AppointmentController', 'method' => 'store', 'middleware' => ['auth', 'csrf', 'permission:appointments.create']],
+        '/appointments/{id}/update' => ['controller' => 'AppointmentController', 'method' => 'update', 'middleware' => ['auth', 'csrf', 'permission:appointments.update']],
+        '/appointments/{id}/delete' => ['controller' => 'AppointmentController', 'method' => 'destroy', 'middleware' => ['auth', 'csrf', 'permission:appointments.delete']],
     ],
 ];
