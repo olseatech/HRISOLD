@@ -300,44 +300,64 @@ $sectionHasActive = static function (array $section) use ($isActive): bool {
 <script>
 (function () {
     'use strict';
-    var KEY = 'hris_snav_state';
+    var KEY = 'hris_snav_open'; // plain string: open section-id, or ''
 
-    function load() {
-        try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (_) { return {}; }
-    }
-    function persist(map) {
-        try { localStorage.setItem(KEY, JSON.stringify(map)); } catch (_) {}
+    function load()          { try { return localStorage.getItem(KEY) || ''; } catch (_) { return ''; } }
+    function persist(openId) { try { localStorage.setItem(KEY, openId); }     catch (_) {} }
+
+    function openSection(sec, btn, chevron) {
+        sec.classList.add('is-open');
+        if (chevron) chevron.classList.add('is-open');
+        if (btn)     btn.setAttribute('aria-expanded', 'true');
     }
 
-    document.querySelectorAll('.snav-section').forEach(function (sec) {
+    function closeSection(sec, btn, chevron) {
+        sec.classList.remove('is-open');
+        if (chevron) chevron.classList.remove('is-open');
+        if (btn)     btn.setAttribute('aria-expanded', 'false');
+    }
+
+    var allSections = Array.from(document.querySelectorAll('.snav-section'));
+
+    // Phase 1 — initial render
+    // PHP marks the active section .is-open; if none is active (e.g. Dashboard),
+    // restore the last-saved section from localStorage.
+    var hasPhpActive = allSections.some(function (s) { return s.classList.contains('is-open'); });
+    var saved = load();
+
+    allSections.forEach(function (sec) {
         var id      = sec.dataset.section;
         var btn     = sec.querySelector('.snav-toggle');
         var chevron = sec.querySelector('.snav-toggle-chevron');
-        var saved   = load();
 
-        // Active sections are always open; others restore from storage
-        if (!sec.classList.contains('is-open') && saved[id] === true) {
-            sec.classList.add('is-open');
+        if (sec.classList.contains('is-open')) {
+            // Sync chevron + aria for the PHP-marked active section
             if (chevron) chevron.classList.add('is-open');
-            btn.setAttribute('aria-expanded', 'true');
+            if (btn)     btn.setAttribute('aria-expanded', 'true');
+        } else if (!hasPhpActive && saved === id) {
+            // No active section on this page — restore the saved one
+            openSection(sec, btn, chevron);
         }
 
+        // Phase 2 — accordion click handler
         btn.addEventListener('click', function () {
-            var open = sec.classList.toggle('is-open');
-            if (chevron) chevron.classList.toggle('is-open', open);
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-            var map = load();
-            map[id] = open;
-            persist(map);
-        });
-    });
+            var isNowOpen = !sec.classList.contains('is-open');
 
-    // Mobile: close sidebar when overlay is clicked
-    document.addEventListener('click', function (e) {
-        if (e.target === document.querySelector('.snav-overlay')) {
-            document.getElementById('sidebar').classList.remove('is-open');
-            document.body.classList.remove('sidebar-open');
-        }
+            // Close every section first
+            allSections.forEach(function (other) {
+                closeSection(other,
+                    other.querySelector('.snav-toggle'),
+                    other.querySelector('.snav-toggle-chevron'));
+            });
+
+            // Open the clicked section (unless it was already open — acts as a toggle)
+            if (isNowOpen) {
+                openSection(sec, btn, chevron);
+                persist(id);
+            } else {
+                persist(''); // all sections collapsed
+            }
+        });
     });
 }());
 </script>
